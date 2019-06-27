@@ -59,11 +59,13 @@
             console.log($('#left_con').width() == 0);
             switch ($('#left_con').width()) {
                 case 0:
-                    $('#left_con').css('width','30%');
+                    $('#left_con').fadeToggle();
+                    // $('#left_con').css('width','30%');
                     $('#left_show').removeClass().addClass('layui-icon layui-icon-prev');
                     break;
                 default:
-                    $('#left_con').css('width', 0);
+                    // $('#left_con').css('width', 0);
+                    $('#left_con').fadeToggle();
                     $('#left_show').removeClass().addClass('layui-icon layui-icon-next')
             }
 
