@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="layui-v2.4.5/layui/css/layui.css">
+    <script src="layui-v2.4.5/layui/layui.js"></script>
+</head>
+<style>
+    #con {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        border: 1px salmon dotted;
+        overflow: hidden;
+    }
+    #con div {
+        border: 1px solid aliceblue;
+        float: left;
+    }
+    .overflow {
+        overflow: hidden;
+    }
+    #left_show {
+        position: absolute;
+        left: 0px;
+        top: 0;
+        padding-right: 20px;
+    }
+    #left_con {
+        position: relative;
+    }
+    #left_table_show {
+        margin-top: 50px;
+    }
+</style>
+<body>
+<div id="con">
+    <div style="width: 30%;float: left;overflow: hidden" id="left_con">
+        <button class="layui-icon layui-icon-down" id="left_table_show"></button>
+        <ul id="afs">
+            <li>dEDDAED</li>
+            <li>dEDDAED</li>
+            <li>dEDDAED</li>
+            <li>dEDDAED</li>
+            <li>dEDDAED</li>
+            <li>dEDDAED</li>
+        </ul>
+    </div>
+    <div style="width: 68%;float: left;position: relative">
+        <button class="layui-icon layui-icon-prev" id="left_show"></button>
+        dseadasdsadsa</div>
+</div>
+<script type="text/javascript">
+	// 日期坠上去
+    layui.use(['jquery'],function () {
+        var $ = layui.jquery;
+        $('#left_show').click(function () {
+            console.log($('#left_con').width() == 0);
+            switch ($('#left_con').width()) {
+                case 0:
+                    $('#left_con').css('width','30%');
+                    $('#left_show').removeClass().addClass('layui-icon layui-icon-prev');
+                    break;
+                default:
+                    $('#left_con').css('width', 0);
+                    $('#left_show').removeClass().addClass('layui-icon layui-icon-next')
+            }
+
+        });
+
+        $('#left_table_show').click(function () {
+            $('#afs').fadeToggle()
+        })
+    })
+
+</script>
+
+</body>
+</html>
