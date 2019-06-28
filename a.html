@@ -52,6 +52,18 @@
         dseadasdsadsa</div>
 </div>
 <script type="text/javascript">
+    const generateId = (() => {
+        let i = 0;
+        return (prefix = '') => {
+
+            console.log(prefix, '---prefix');
+            i += 1;
+            return `${prefix}${i}`;
+        };
+    })();
+    console.log(generateId, '-func');
+</script>
+<script type="text/javascript">
 	// 日期坠上去
     layui.use(['jquery'],function () {
         var $ = layui.jquery;
@@ -77,6 +89,7 @@
     })
 
 </script>
+
 
 </body>
 </html>
