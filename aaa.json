@@ -1,0 +1,102 @@
+{
+  "lstClipSubInfo": [
+    {
+      "strSubName": "YSYD",
+      "clipInfo": {
+        "strSubName": "建设用地预审用地",
+        "lstTabInfo": [
+          {
+            "strTabID": "YSYD",
+            "strTabName": "建设用地预审用地",
+            "lstFlds":[
+              "mpArea",
+              "mpPerimeter",
+              "mpLayer",
+              "GUID",
+              "LAND_CODE",
+              "BUSI_TYPE",
+              "LOCATION",
+              "AREA",
+              "LAYER_STATUS",
+              "AREA_NUM",
+              "XMMC",
+              "PFWH",
+              "PZSJ",
+              "XMMJ",
+              "ID"
+            ],
+            "lstRows": [
+              {
+                "mpArea": "79407.817919",
+                "mpPerimeter": "1183.367428",
+                "mpLayer": "0",
+                "GUID": "d8d22d054d5e4ce5bd9f8629a44dd316",
+                "LAND_CODE": "YDYS-41010500000083",
+                "BUSI_TYPE": "02",
+                "LOCATION": "1",
+                "AREA": "174684.906",
+                "LAYER_STATUS": "1",
+                "AREA_NUM": "金水区",
+                "XMMC": "",
+                "PFWH": "",
+                "PZSJ": "",
+                "XMMJ": "",
+                "ID": "",
+                "GEOMETRYS": "GeomType=AnyPolygon,1,5,38469992.763196378946,3865139.315985907800,38470084.028553269804,3865512.979730079416,38470286.810627147555,3865491.445284233894,38470207.168905273080,3865120.341339090839,38469992.763196378946,3865139.315985907800"
+              },
+              {
+                "mpArea": "73541.588270",
+                "mpPerimeter": "2007.687057",
+                "mpLayer": "0",
+                "GUID": "fb89efe306154141929e0c873cc7f523",
+                "LAND_CODE": "YDYS-41010500000084",
+                "BUSI_TYPE": "02",
+                "LOCATION": "2",
+                "AREA": "152908.438",
+                "LAYER_STATUS": "1",
+                "AREA_NUM": "金水区",
+                "XMMC": "",
+                "PFWH": "",
+                "PZSJ": "",
+                "XMMJ": "",
+                "ID": "",
+                "GEOMETRYS": "GeomType=AnyPolygon,1,9,38469992.763196378946,3865139.315985907800,38470207.168905273080,3865120.341339090839,38470286.810627147555,3865491.445284233894,38470084.028553269804,3865512.979730079416,38470092.877630859613,3865549.210119971074,38470408.473013222218,3865519.617264875211,38470340.401075199246,3865086.580968975089,38469979.588978782296,3865085.377365154214,38469992.763196378946,3865139.315985907800"
+              }
+            ]
+          }
+        ]
+      },
+      "basicInfo": {
+        "lstYearInfo": [
+          {
+            "name": "占用原预审用地地块",
+            "field": "",
+            "value": "",
+            "detail": "false",
+            "widget": ""
+          },
+          {
+            "name": "项目面积",
+            "field": "",
+            "value": "327593.34(491.3900)",
+            "detail": "false",
+            "widget": ""
+          },
+          {
+            "name": "压占面积",
+            "field": "",
+            "value": "152949.41(229.4241)",
+            "detail": "false",
+            "widget": ""
+          }
+        ]
+      },
+      "tabInfo": {
+        "strKey": "建设用地预审用地",
+        "strValue": "{\"YSYDYSYDQKB_ZP2|建设用地预审用地情况表\":[{\"XMMC\":\"\",\"PFWH\":\"\",\"PZSJ\":\"\",\"LOCATION\":\"1\",\"AREA\":174684.90625,\"XMMJ\":0.0,\"BUSI_TYPE\":\"02\",\"LAND_CODE\":\"YDYS-41010500000083\",\"GUID\":\"d8d22d054d5e4ce5bd9f8629a44dd316\",\"LAYER_STATUS\":\"1\",\"mpArea\":79407.817918896675},{\"XMMC\":\"\",\"PFWH\":\"\",\"PZSJ\":\"\",\"LOCATION\":\"2\",\"AREA\":152908.4375,\"XMMJ\":0.0,\"BUSI_TYPE\":\"02\",\"LAND_CODE\":\"YDYS-41010500000084\",\"GUID\":\"fb89efe306154141929e0c873cc7f523\",\"LAYER_STATUS\":\"1\",\"mpArea\":73541.588269986212}]}"
+      },
+      "specialInfo": null
+    }
+  ],
+  "ClipLyrIp": "10.0.0.99"
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="panel window window-thinborder window-noborder panel-htop"
+     style="display: block; width: 400px; left: 1200px; top: 136px; z-index: 9000;">
+    <div class="panel-header panel-header-noborder window-header" style="width: 400px;">
+        <div class="panel-title" style="">要素查询</div>
+        <div class="panel-tool"><a class="panel-tool-collapse"></a><a class="panel-tool-max"></a><a
+                class="panel-tool-close"></a></div>
+    </div>
+    <div title="" class="panel-body panel-body-noborder window-body" id="LandqueryFeatureswindow"
+         style="width: 400px; height: 134px;">
+        <div class="queryFeaturesBox">
+            <div class="searchWay">
+                <div class="queryWay" id="Point"
+                     data-config="%7B%22id%22:%22Point%22,%22label%22:%22%E7%82%B9%22,%22freehand%22:false,%22icon%22:%22icon-Point%22%7D">
+                    <a class="easyui-linkbutton l-btn l-btn-small l-btn-plain"
+                       data-options="iconCls:'icon-Point',plain:true" group="" id=""><span
+                            class="l-btn-left l-btn-icon-left"><span class="l-btn-text">点</span><span
+                            class="l-btn-icon icon-Point-hover">&nbsp;</span></span></a></div>
+                <div class="queryWay" id=""
+                     data-config="%7B%22id%22:%22%22,%22label%22:%22%E7%9F%A9%E5%BD%A2%22,%22freehand%22:true,%22icon%22:%22icon-Box%22,%22checked%22:true%7D">
+                    <a class="easyui-linkbutton l-btn l-btn-small l-btn-plain"
+                       data-options="iconCls:'icon-Box',plain:true" group="" id=""><span
+                            class="l-btn-left l-btn-icon-left"><span class="l-btn-text">矩形</span><span
+                            class="l-btn-icon icon-Box">&nbsp;</span></span></a></div>
+                <div class="queryWay" id="LineString"
+                     data-config="%7B%22id%22:%22LineString%22,%22label%22:%22%E7%BA%BF%22,%22freehand%22:false,%22icon%22:%22icon-LineString%22%7D">
+                    <a class="easyui-linkbutton l-btn l-btn-small l-btn-plain"
+                       data-options="iconCls:'icon-LineString',plain:true" group="" id=""><span
+                            class="l-btn-left l-btn-icon-left"><span class="l-btn-text">线</span><span
+                            class="l-btn-icon icon-LineString">&nbsp;</span></span></a></div>
+                <div class="queryWay" id="Polygon"
+                     data-config="%7B%22id%22:%22Polygon%22,%22label%22:%22%E5%A4%9A%E8%BE%B9%E5%BD%A2%22,%22freehand%22:false,%22icon%22:%22icon-Polygon%22%7D">
+                    <a class="easyui-linkbutton l-btn l-btn-small l-btn-plain"
+                       data-options="iconCls:'icon-Polygon',plain:true" group="" id=""><span
+                            class="l-btn-left l-btn-icon-left"><span class="l-btn-text">多边形</span><span
+                            class="l-btn-icon icon-Polygon">&nbsp;</span></span></a></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="searchR">
+                <div class="input-row">
+                    <div class="input-row-lable"><label class="myLabel" for="searchKM" style="line-height: 45px;">查询范围（km）：</label>
+                    </div>
+                    <div class="input-row-input" style="height: 45px;padding: 0 15px;"><input id="searchKM"
+                                                                                              class="input slider-f"
+                                                                                              style="display: none;">
+                        <div class="slider slider-h">
+                            <div class="slider-inner"><a class="slider-handle" style="left: 62px;"></a><span
+                                    class="slider-tip" style="left:62px;margin-left:0px"></span></div>
+                            <div class="slider-rule"><span style="left: 0%;"></span><span
+                                    style="left: 25%;"></span><span style="left: 50%;"></span><span
+                                    style="left: 75%;"></span><span style="left: 100%;"></span></div>
+                            <div class="slider-rulelabel"><span style="left: 0%; margin-left: 0px;">0</span><span
+                                    style="left: 25%; margin-left: 0px;">0.1</span><span
+                                    style="left: 50%; margin-left: 0px;">0.5</span><span
+                                    style="left: 75%; margin-left: 0px;">1</span><span
+                                    style="left: 100%; margin-left: 0px;">5</span></div>
+                            <div style="clear:both"></div>
+                            <input type="hidden" class="slider-value" name="" value="25"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

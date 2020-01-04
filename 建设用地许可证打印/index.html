@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../JS/jquery.min.js"></script>
+    <script src="../JS/jquery.PrintArea.js"></script>
+
+</head>
+<body>
+<div id="pageBottom" class="scale" style="">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+        #pageBottom {
+            position: relative;
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            width: calc(188mm - 19.05mm);
+            height: calc(242mm - 19.05mm);
+        }
+        .center {
+            text-align: center;
+        }
+        .Novisibile {
+            visibility: hidden;
+        }
+
+    </style>
+
+
+
+    <div class="center printControl" style="font-size: 8mm;line-height: 10mm;padding-top: 10mm">中华人民共和国</div>
+    <div class="center printControl" style="font-size: 12mm;line-height: 30mm">建设用地规划许可证</div>
+    <div class="overflow">
+        <div class="overflow fr" id="certificateCode" style="font-size: 4mm;padding: 2mm 6mm 6mm 0">
+            <div class="fl printControl">郑规</div>
+            <div class="fl" style="border-bottom: 1px solid #000">地字第1234567897890123456</div>
+            <div class="fl printControl">号</div>
+        </div>
+    </div>
+    <div class="printControl" style="font-size: 5mm;padding: 16mm 6mm 0;text-indent: 10mm;letter-spacing: 2mm;line-height: 12mm">根据《中华人民共和国城乡规划法》第三十七、第三十八条规定，经审核，本用地项目符合城乡规划要求，办法此证。</div>
+    <div style="font-size: 5mm;width: 100mm;position: absolute;bottom: 50mm;line-height: 12mm;right: 0;">
+        <div class="overflow">
+            <div class="fl printControl" style="width: 32mm">发证机关</div>
+            <div class="fl printControl">郑州市城乡规划局</div>
+        </div>
+        <div class="overflow">
+            <div class="fl printControl" style="letter-spacing: 10mm;width: 32mm">日期</div>
+            <div class="fl">2019年1月1日</div>
+        </div>
+    </div>
+
+</div>
+<button id="printAction">打印</button>
+<script type="text/javascript">
+    var rotate = '<style id="scaleStyle" type="text/css">.scale {transform: rotateZ(-90deg); }</style>';
+    $('#printAction').click(function () {
+        $('#pageBottom').append($(rotate));
+        $printControl = $('.printControl');
+        $printControl.css({
+            visibility: "hidden"
+        });
+        $('#pageBottom').printArea({
+            orientation: 2
+        });
+        $printControl.css({
+            visibility: "visible"
+        });
+        $('#scaleStyle').remove()
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>浏览器检测</title>
+    <script src="MD5.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+    console.log(md5('aaa'));
+</script>
+<script>
+    $.ajax({
+    		type:"post",
+    		url:"http://192.168.43.106:3000/users/login",
+    		async:true,
+        data:{
+    	    name:123456,
+    	    pw:123456
+        },
+    		success:function(data) {
+                console.log(data);
+            }
+    	});
+    window.onload = function () {
+
+        //application/vnd.chromium.remoting-viewer 可能为360特有
+        var is360 = _mime("type", "application/vnd.chromium.remoting-viewer");
+
+        if (isChrome() && is360) {
+            alert("检测到是360浏览器");
+        }
+    }
+    //检测是否是谷歌内核(可排除360及谷歌以外的浏览器)
+    function isChrome(){
+        var ua = navigator.userAgent.toLowerCase();
+
+        return ua.indexOf("chrome") > 1;
+    }
+    //测试mime
+    console.log(navigator.appName);
+
+    function _mime(option, value) {
+        var mimeTypes = navigator.mimeTypes;
+        for (var mt in mimeTypes) {
+            if (mimeTypes[mt][option] == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+</script>
+
+<body>
+</body>
+
+</html>

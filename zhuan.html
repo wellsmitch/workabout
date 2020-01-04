@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Title</title>
+    <style>
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="JS/jquery.min.js"></script>
+</head>
+<body style="background: #443f45 url('zhuan.png') center/contain no-repeat;background-position: top">
+<div>
+    <span></span>
+    <ul>
+        <li>areaName</li>
+        <li>landCode</li>
+        <li>busiType</li>
+        <li>createUser</li>
+        <li>zongdiBianhao</li>
+    </ul>
+</div>
+<input type="checkbox" checked id="a">
+<button id="t">true</button>
+<button id="f">false</button>
+<script type="text/javascript">
+    $('#t').click(function () {
+        $('#a')[0].checked  = true
+    });
+    $('#f').click(function () {
+        $('#a').attr('checked',false)
+    })
+
+</script>
+</body>
+</html>

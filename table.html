@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @media print
+        {
+            /*table {*/
+                /*page-break-before:always;*/
+                /*page-break-after:always;*/
+            /*}*/
+        }
+        @page {
+            size: A4;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /*html,body {*/
+            /*height: 100%;*/
+        /*}*/
+        #sd {
+            width: 210mm;
+            /*height: 270mm;*/
+            /*margin: 0 auto;*/
+            /*position: relative;*/
+            /*page-break-after: always;*/
+            /*padding: 20mm 10mm;*/
+            /*font-family: 宋体;*/
+        }
+    </style>
+    <script src="JS/jquery.min.js"></script>
+</head>
+<body>
+<div id="sd" style="/*border: 10px solid #aaaaaa;*/height: 297mm;">
+    dsf
+    <!--<table border="1" style="border-collapse: collapse;line-height: 80px">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th>fdeawfs</th>-->
+            <!--<th>fdeawfs</th>-->
+            <!--<th>fdeawfs</th>-->
+            <!--<th>fdeawfs</th>-->
+            <!--<th>fdeawfs</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+
+        <!--</tbody>-->
+
+    <!--</table>-->
+</div>
+
+<script type="text/javascript">
+    // for(var i = 0;i < 13;i++) { // 890  971 1052 1133
+    //     $('tbody').append(`
+    //     <tr>
+    //         <td>fdeawfs</td>
+    //         <td>fdeawfs</td>
+    //         <td>fdeawfs</td>
+    //         <td>fdeawfs</td>
+    //         <td>fdeawfs</td>
+    //     </tr>
+    // `);
+    // }
+    console.log($('table').height());
+    function pm2px(d) {
+        var iswindow = /windows|win32/i.test(navigator.userAgent);
+        if (iswindow) {
+            return Math.round(d * 96 / 25.4);
+        } else {
+            return Math.round(d * 72 / 25.4);
+        }
+    }
+    function px2pm(d) {
+        var iswindow = /windows|win32/i.test(navigator.userAgent);
+        if (iswindow) {
+            return Math.round(d * 25.4 / 96);
+        } else {
+            return Math.round(d * 25.4 / 72);
+        }
+    }
+// 297mm  210mm
+    console.log(px2pm($('body').height()));
+
+    // https://blog.csdn.net/qq_25131799/article/details/81312131
+    window.print()
+</script>
+</body>
+</html>

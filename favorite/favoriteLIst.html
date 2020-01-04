@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="../JS/vue.min.js"></script>
+</head>
+<body>
+<div id="favoriteWrape" style="height: 100%;padding: 0 16px;background: #f1f1f1;overflow: hidden">
+        <div v-for="(item, index) in dataArr" style="box-sizing: border-box;padding: 0 10px;border-radius: 6px;background: #fff;margin-top: 12px">
+            <div style="font-size: 16px;line-height: 28px">{{item.title}}</div>
+            <div style="color: #c9c9c9;font-size: 14px;line-height: 20px">
+                <span>{{item.user}}</span>
+                <span>{{item.time}}</span>
+            </div>
+        </div>
+</div>
+<script type="text/javascript">
+	var favoriteWrape = new Vue({
+        el:'#favoriteWrape',
+        data:{
+            dataArr:[
+                {
+                    title:'公文发文内容',
+                    user:'张胜',
+                    time:'2019-8-8'
+                }, {
+                    title:'公文发文内容',
+                    user:'张胜',
+                    time:'2019-8-8'
+                }, {
+                    title:'公文发文内容',
+                    user:'张胜',
+                    time:'2019-8-8'
+                }
+            ]
+        },
+        methods: {
+
+        }
+    })
+</script>
+</body>
+</html>

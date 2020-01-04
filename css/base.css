@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.overflow {
+    overflow: hidden;
+}

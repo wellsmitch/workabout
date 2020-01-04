@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="layui-v2.4.5/layui/layui.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="aa ss" style="width: 500px;height: 2500px;border: 1px solid #000;position: relative" id="box">
+    <div class="noCursor" style="width: 100px;height: 200px;">dfaw efwefw essss ssss ssss ss ssss s sss ssss ss srf </div>
+    <div id="cursorStyle" style="width: 20px;height: 20px;border-radius: 50%;background: url('img/rmenu1.gif') no-repeat center/cover;position: absolute;display: none;z-index: 10"></div>
+</div>
+
+<script type="text/javascript">
+
+    layui.use('jquery',function () {
+        var $ = layui.jquery;
+console.log($('div[class*=a]'))
+        $('.noCursor').on('mouseenter',function () {
+            $('.noCursor').css({cursor: 'initial'});
+            $('#cursorStyle').css({
+                'display':'none'
+            });
+          return false;
+        });
+
+        $('.noCursor').on('mouseleave',function () {
+            $('.noCursor').css({cursor: 'none'});
+            return false;
+        });
+
+        $('.noCursor').on('mousemove',function () {
+            $('.noCursor').css({cursor: 'initial'});
+            $('#cursorStyle').css({
+                'display':'none'
+            });
+            return false;
+        });
+
+        $('#box').on('mouseenter',function (e) {
+            $('#cursorStyle').css({
+                'display':'block'
+            });
+
+        });
+
+        $('#box').on('mousemove',function (e) {
+            console.log('sssss');
+            $('#cursorStyle').css({
+                'display':'block',
+                'left': e.offsetX+5,
+                'top': e.offsetY+5
+            });
+            $('#box').css({
+                cursor: 'none'
+            })
+        });
+
+        $('#box').on('mouseleave',function (e) {
+            $('.noCursor').css({cursor: 'initial'});
+            $('#cursorStyle').css({
+                'display':'none',
+            });
+            $('#box').css({
+                cursor: 'initial'
+            })
+        })
+    })
+</script>
+</body>
+</html>

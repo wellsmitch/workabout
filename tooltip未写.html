@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        td {
+            height: 80px;
+            border: 1px solid #eeeeee;
+            color: #333333;
+        }
+
+        .showMore {
+            cursor: pointer;
+            position: relative;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        .showMore>div {
+            background: #fff1f2;
+            margin-bottom: 3px;
+        }
+
+        .none {
+            display: none;
+        }
+
+        #moreMSgWraper {
+
+        }
+        .showmoreClick {
+            position: relative;
+            background: transparent;
+            text-decoration: underline;
+            text-align: center;
+            color: #25a7e6;
+        }
+        #moreMSgWraper ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #moreMSgWraper ul li {
+            font-size: 12px;
+            line-height: 20px;
+            background: #fff1f2;
+            margin-bottom: 2px;
+            padding: 0 6px;
+            cursor: pointer;
+        }
+        #moreMSgWraper ul li:hover {
+            background: #f5d4d6;
+        }
+    </style>
+    <script src="JS/jquery.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+	$('body').prepend('<input type="radio">')
+</script>
+<div id="out" style="position:relative;width: 648px;margin: 280px auto 0;">
+    <table style="position: relative;border-collapse: collapse;">
+        <thead>
+        <tr style="background: #f5f5f5;color: #333333;font-size: 15px">
+            <th>星期日</th>
+            <th>星期一</th>
+            <th>星期二</th>
+            <th>星期三</th>
+            <th>星期四</th>
+            <th>星期五</th>
+            <th>星期六</th>
+        </tr>
+        </thead>
+    </table>
+    <div id="moreMSgWraper" class="none" style="position: absolute;border: 2px solid #d9d9d9;box-shadow: 0 0 4px 0 #bbbbbb;background: #fff">
+        <ul>
+            <li>这是提示信息</li><li>这是提示信息</li><li>这是提示信息</li><li>这是提示信息</li><li>这是提示信息</li><li>这是提示信息</li><li>这是提示信息</li><li>这是提示信息</li><li>这是提示信息</li>
+            <li>这是提示信息</li>
+            <li>这是提示信息</li>
+            <li>这是提示信息</li>
+            <li>这是提示信息</li>
+            <li>这是提示信息</li>
+            <li>这是提示信息</li>
+            <li>这是提示信息</li>
+        </ul>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    for (var i = 0; i < 6; i++) {
+        $("#out > table").append('<tr>' +
+            '<td>' +
+                '<div class="showMore">' +
+                    '<div>fcafwefwefwe</div>' +
+                    '<div>fcafwefwefwe</div>' +
+                    '<div>fcafwefwefwe</div>' +
+                    '<div class="showmoreClick">显示更多</div>' +
+                '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="showMore">' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div class="showmoreClick">显示更多</div>' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="showMore">' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div class="showmoreClick">显示更多</div>' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="showMore">' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div class="showmoreClick">显示更多</div>' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="showMore">' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div class="showmoreClick">显示更多</div>' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="showMore">' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div class="showmoreClick">显示更多</div>' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="showMore">' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div>fcafwefwefwe</div>' +
+            '<div class="showmoreClick">显示更多</div>' +
+            '</div>' +
+            '</td>' +
+
+            '</tr>')
+    }
+
+    var domNum = null;
+    $('.showMore').click(function () {
+        console.log($(this).height(), $(this).find('.showmoreClick').position().top);
+        var showmoreClick_bottom = $(this).height() - $(this).find('.showmoreClick').position().top;
+        var showmoreClick_top = $(this).find('.showmoreClick').position().top;
+
+        if (domNum === $(this).parents('td').index()) {
+            $('#moreMSgWraper').toggleClass('none');
+        } else {
+            domNum = $(this).parents('td').index();
+            $('#moreMSgWraper').removeClass('none');
+        }
+
+        // 单元格
+        var width_ = $(this).parents('td').width() + 6;
+        var height_ = $(this).parents('td').height() + 6;
+
+        var positionValueObj = $(this).parents('td').position();
+
+        var left = positionValueObj.left + width_;
+        var top = positionValueObj.top + height_;
+
+        //  更多信息的容器宽高
+        var moreMSgWraper_width = $('#moreMSgWraper').width();
+        var moreMSgWraper_height = $('#moreMSgWraper').height();
+
+        // 右下角判断
+        var isRight = ($('#out').width() - left) > moreMSgWraper_width;
+        var isBottom = ($('#out').height() - top) > moreMSgWraper_height;
+
+        // 距离右边的距离
+        if (isRight && isBottom) { // 出现在右下角
+            $('#moreMSgWraper').css({
+                left: left,
+                top: top - showmoreClick_bottom
+            })
+        } else if (!isRight && isBottom) { // 左下角
+            $('#moreMSgWraper').css({
+                left: $('#out').width() - (moreMSgWraper_width + width_ + ($('#out').width() - left)),
+                top: top - showmoreClick_bottom
+            })
+        } else if (isRight && !isBottom) { // 出现在右上角
+            $('#moreMSgWraper').css({
+                left: left,
+                top: $('#out').height() - (moreMSgWraper_height + height_ + ($('#out').height() - top))  + showmoreClick_top
+            })
+        } else if (!isRight && !isBottom) { // 出现在左上角
+            $('#moreMSgWraper').css({
+                left: $('#out').width() - (moreMSgWraper_width + width_ + ($('#out').width() - left)),
+                top: $('#out').height() - (moreMSgWraper_height + height_ + ($('#out').height() - top)) + showmoreClick_top
+            })
+        } else {
+            console.error("出错了。。。")
+        }
+
+    });
+</script>
+</body>
+</html>

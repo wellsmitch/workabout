@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../layui-v2.4.5/layui/css/layui.css">
+    <script src="../layui-v2.4.5/layui/layui.js"></script>
+    <link rel="stylesheet" href="../css/base.css">
+    <style type="text/css">
+        li {
+            width: 1000px;
+        }
+    </style>
+    <link rel="stylesheet" href="../myfonts/iconfont.css">
+</head>
+<body>
+<ul>
+    <li>
+        <div class="overflow">
+            <div class="fl"><span class="iconfont icon-huiyishi"></span>会议室1</div>
+            <div class="layui-form fl overflow">
+                <div class="fl">
+                    <label class="layui-form-label">开始时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="beginTime" placeholder="yyyy-MM-dd">
+                    </div>
+                </div>
+                <div class="fl">
+                    <label class="layui-form-label">结束时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="endTime" placeholder="yyyy-MM-dd">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <table id="office_1" lay-filter="office_1" style="width: 100%"></table>
+    </li>
+</ul>
+
+</body>
+<script type="text/javascript">
+    layui.use(['laydate', 'table'], function () {
+        var laydate = layui.laydate,
+            table = layui.table;
+
+        laydate.render({
+            elem: '#beginTime'
+        });
+
+        laydate.render({
+            elem: '#endTime'
+        });
+
+        table.render({
+            elem: '#office_1'
+            // ,height: $('#bottomDiv').height() - 30
+            , cols: [[
+                {field: 'order', title: '序号', width: 200}
+                , {field: 'startTime', title: '开始时间', width: 100}
+                , {field: 'endTime', title: '结束时间', width: 100}
+                , {field: 'officeName', title: '会议名称'}
+                , {field: 'peopleTotal', title: '参会人数', width: 100}
+                , {field: 'applyPerson', title: '申请人', width: 100}
+                , {field: 'applyRoom', title: '申请科室', width: 100}
+                , {field: 'applyTime', title: '申请时间', width: 100}
+            ]]
+            , data: [
+                {
+                    order: '1',
+                    startTime: '12',
+                    endTime: '13',
+                    officeName: '14',
+                    peopleTotal: '15',
+                    applyPerson: '16',
+                    applyRoom: '17',
+                    applyTime: '18',
+                }
+            ]
+            , even: true
+        });
+    })
+</script>
+</html>

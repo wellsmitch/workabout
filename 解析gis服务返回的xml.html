@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="JS/jquery.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    // HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\PageSetup
+
+    function analyXml(dom) {
+        var DATA = {
+            coorStr:'',
+            officeData:{}
+        };
+        DATA.coorStr = isNode(dom);
+        DATA.officeData = officeData(dom);
+        return DATA;
+    }
+
+    function isNode(dom) {
+                //坐标串
+                if (dom.children.length == 0) {
+                    return dom.innerHTML;
+                }
+                return isNode(dom.children[0]);
+    }
+    function officeData(dom1) {
+        var dataObj = {};
+        while (dom1.children.length === 1) {
+            dom1 = dom1.children;
+        }
+        for(var k = 0;k < dom1.children.length;k++) {
+            var tagName = $(dom1.children[k]).prop('tagName');
+            dataObj[tagName.split(':')[1]] = dom1.children[k].innerHTML
+        }
+        return dataObj;
+    }
+
+    $.ajax({
+        type: "get",
+        url: "./data/bpyd-features.xml",
+        async: true,
+        success: function (data) {
+            console.log(data);
+            if(data.children[0].children[0].tagName === 'gml:featureMembers') {
+                var features = data.children[0].children[0].children;
+               for(var i = 0;i < features.length;i++) {
+                   var node = features[i];
+                  var s = analyXml(node);
+                   console.log(s);
+               }
+           }
+        }
+    });
+
+</script>
+</body>
+</html>

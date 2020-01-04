@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../JS/jquery.min.js"></script>
+    <script src="../JS/vue.js"></script>
+    <script src="../layui-v2.4.5/layui/layui.js"></script>
+    <link rel="stylesheet" href="../layui-v2.4.5/layui/css/layui.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <!--<script src="ol.js"></script>-->
+    <script src="ol-debug.js"></script>
+    <script src="proj4-src.js"></script>
+    <script src="config.js"></script>
+    <style type="text/css">
+        #layerInfo, #businessConfigId {
+            font-size: 14px;
+            line-height: 28px;
+            color: rgba(18, 105, 211, 0.19);
+        }
+
+        #layerInfo th, #businessConfigId th {
+            background: #f2f2f2;
+            border: 1px solid #e5e5e5;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        #layerInfo td, #businessConfigId td {
+            border: 1px solid #e5e5e5;
+            padding: 0 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="layerSetting">
+    <div class="layui-tab layui-tab-card">
+        <ul class="layui-tab-title">
+            <li class="layui-this">基本信息</li>
+            <li>图层信息</li>
+            <li>业务信息</li>
+        </ul>
+        <div class="layui-tab-content">
+            <!--  基本信息 start  -->
+            <div class="layui-tab-item layui-show">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">坐标系</label>
+                        <div class="layui-input-block">
+                            <input type="text" v-model="globalMapConfig.localProjection" name="localProjection"
+                                   lay-verify="title"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">坐标系信息</label>
+                        <div class="layui-input-block">
+                            <input type="text" v-model="globalMapConfig.srsCnName" name="srsCnName"
+                                   lay-verify="required"
+                                   lay-reqtext="坐标系信息是必填项，岂能为空？"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">服务器IP</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" v-model="globalMapConfig.serverIp" name="serverIP"
+                                       lay-verify="required"
+                                       autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">服务器端口</label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model="globalMapConfig.serverPort" name="serverPort"
+                                       lay-verify="required"
+                                       autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">地图中心点</label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.viewCenter[0]" name="mapCenterPointX"
+                                       lay-verify="required" autocomplete="off"
+                                       class="layui-input" placeholder="X">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div>--</div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.viewCenter[1]" name="mapCenterPointY"
+                                       lay-verify="required" autocomplete="off"
+                                       class="layui-input" placeholder="Y">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">地图范围</label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.projectionExtent[0]" name="minX"
+                                       lay-verify="required" autocomplete="off"
+                                       class="layui-input" placeholder="minX">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div>---</div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.projectionExtent[1]" name="minY"
+                                       lay-verify="required" autocomplete="off"
+                                       class="layui-input" placeholder="minY">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div>---</div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.projectionExtent[2]" name="maxX"
+                                       lay-verify="required" autocomplete="off"
+                                       class="layui-input" placeholder="maxX">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div>---</div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.maxY" name="projectionExtent[3]"
+                                       lay-verify="required" autocomplete="off"
+                                       class="layui-input" placeholder="maxY">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">最小层级</label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.minZoom" name="minZoom"
+                                       lay-verify="required"
+                                       autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">最大层级</label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.maxZoom" name="maxZoom"
+                                       lay-verify="required"
+                                       autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">最大分辨率</label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.maxResolution" name="maxResolution"
+                                       lay-verify="required"
+                                       autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">初始层级</label>
+                            <div class="layui-input-inline">
+                                <input type="text" v-model.number="globalMapConfig.initZoom" name="initZoom"
+                                       lay-verify="required"
+                                       autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--  基本信息 end  -->
+            <!--  图层信息 start  -->
+            <div class="layui-tab-item">
+                <div>
+                    <button type="button" class="layui-btn" @click="layerAction()" style="margin-bottom: 10px">添加图层
+                    </button>
+                </div>
+                <table id="layerInfo">
+                    <thead>
+                    <th>图层名称</th>
+                    <th>图层简称</th>
+                    <th>图层类型</th>
+                    <th>操作</th>
+                    </thead>
+                    <tr v-for="(value, key) in layerMap">
+                        <td>{{value.name}}</td>
+                        <td>{{key}}</td>
+                        <td>{{value.type}}</td>
+                        <td>
+                            <a class="layui-btn layui-btn-xs" lay-event="edit" @click="layerAction(key, value)">编辑</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-xs" @click="delLayerAction(key, value)"
+                               lay-event="del">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--  图层信息 end  -->
+            <!--  业务信息 start  -->
+            <div class="layui-tab-item">
+                <button class="layui-btn" @click="subjectAction()" style="margin-bottom: 10px">添加专题</button>
+                <table id="businessConfigId">
+                    <thead>
+                    <th>专题名称</th>
+                    <th>专题英文名称</th>
+                    <th>图层列表</th>
+                    <th>操作</th>
+                    </thead>
+                    <tr v-for="(item, index) in businessConfig">
+                        <td>{{item.title}}</td>
+                        <td>{{item.name}}</td>
+                        <td>
+                            <span v-for="(item1, index) in item.layers">{{item1.layer.name}}&nbsp;&nbsp;</span>
+                        </td>
+                        <td>
+                            <a class="layui-btn layui-btn-xs" lay-event="edit" :n="item.name"
+                               @click="subjectAction(item, index)">编辑</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"
+                               @click="subjectDel(index)">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--  业务信息 end  -->
+        </div>
+    </div>
+    <!--  图层弹出层内容start  -->
+    <div id="uis" style="display: none">
+        <div style="padding: 20px 0">
+            <div class="layui-form-item" id="layerMapMsgPanel">
+                <div class="layui-inline">
+                    <label class="layui-form-label">图层名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" v-model="layerInfoObj.name" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">图层简称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model="layerInfoObj.simpleName" name="simpleName" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">图层类型</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model="layerInfoObj.type" name="type" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">文档名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model="layerInfoObj.docName" name="docName" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">文档图层名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model="layerInfoObj.layer" name="layer" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">图层索引</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model.number="layerInfoObj.layerIndex" name="layerIndex"
+                               lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">专题名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model="layerInfoObj.strClassInfo" name="strClassInfo" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">专题更新</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model="layerInfoObj.updateStrClassInfo" name="updateStrClassInfo"
+                               lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">叠加分析表</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-model="layerInfoObj.strTbl" name="strTbl" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">服务URL</label>
+                    <div class="layui-input-inline" style="width: 500px">
+                        <input type="text" v-model="layerInfoObj.url" name="url" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <button class="layui-btn-primary layui-btn" style="margin: 0 0 10px 36px;" @click="addProperties()">添加属性
+            </button>
+
+            <div class="layui-form-item" style="border-bottom: 1px solid #aaa;" id="inputListen">
+                <!--  添加图层属性模板 start  -->
+                <div class="newPropertiesWrape">
+                    <div class="layui-inline newPropertiesItem"
+                         style="display: block;overflow: hidden;background: #e8e8e8;padding: 6px 0"
+                         v-for="(item, index) in newPropertiesSum">
+                        <label class="layui-form-label">数据库字段</label>
+                        <div class="layui-input-inline">
+                            <input type="text" markName="database" name="newPropertiesDatebaseName"
+                                   lay-verify="required"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+                        <label class="layui-form-label">属性别名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" value="" name="newPropertiesName" @change="" lay-verify="required"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+                        <label class="layui-form-label">属性名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" value="" name="newPropertiesTitle" lay-verify="required"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+                        <label class="layui-form-label">是否显示</label>
+                        <div class="layui-input-inline">
+                            <input type="text" value="" name="newPropertiesTitleShow" lay-verify="required"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="width: 0"></label>
+                        <div class="layui-input-inline">
+                            <button class="layui-btn layui-btn-danger" @click="delProperty(index)">删除</button>
+                        </div>
+                    </div>
+                </div>
+                <!--  添加图层属性模板 end  -->
+
+
+                <div class="layui-inline" style="display: block;padding: 10px 0;border-bottom: 1px dotted #aaa"
+                     v-for="(value, key) in layerInfoObj.properties">
+                    <label class="layui-form-label">数据库字段</label>
+                    <div class="layui-input-inline">
+                        <input type="text" :keyListener="key" v-model='key' markName="database" name="layerName"
+                               lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+
+                    <div v-for="(value1, key1) in value" style="display: inline-block">
+                        <label class="layui-form-label">{{key1}}</label>
+                        <div class="layui-input-inline">
+                            <input type="text" v-model='value[key1]' name="layerName" lay-verify="required"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div style="display: inline-block">
+                        <label class="layui-form-label" style="width: 0"></label>
+                        <div class="layui-input-inline">
+                            <button class="layui-btn layui-btn-danger" @click="delProperty(key)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  图层弹出层内容end  -->
+
+    <!--  专题信息弹出层内容 start                                 :readonly="'businessSubjectIsEdit' ? true : false"
+-->
+    <div id="subject" style="display: none">
+        <div class="layui-form-item" style="border-bottom: 1px solid #aaa;">
+            <div class="overflow" style="padding-top: 10px">
+                <div class="layui-inline">
+                    <label class="layui-form-label">专题名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text"
+                               v-model='businessInfoObj.title' name="subjectCN" lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width: auto">专题英文名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text"
+                               v-model='businessInfoObj.name' name="subjectEN" lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <button class="layui-btn layui-btn-primary" @click="addBusinessLayer()" style="margin: 0 0 0 40px">添加图层
+            </button>
+            <div class="overflow" v-for="(item, index) in businessInfoObj.layers">
+                <hr>
+                <div class="layui-inline" v-for="(value2, key2) in item">
+                    <label class="layui-form-label">{{key2}}</label>
+                    <div class="layui-input-inline">
+                        <input type="text" v-if="key2 == 'layer'" :hasLayer="item[key2]['name']"
+                               v-model='item[key2].name' readonly name="layerName"
+                               lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                        <input type="text" v-if="key2 !== 'layer'" v-model='item[key2]' name="layerName"
+                               lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div>
+                    <button class="layui-btn layui-btn-danger" @click="businessLayerDel(index)"
+                            style="margin: 10px 0 0 61px;">删除
+                    </button>
+                    <button class="layui-btn layui-btn-normal" v-show="index != 0" @click="businessLayerUp(item, index)"
+                            style="margin: 10px 0 0 61px;">上移
+                    </button>
+                    <button class="layui-btn layui-btn-normal" v-show="index != businessInfoObj.layers.length - 1"
+                            @click="businessLayerDown(item, index)"
+                            style="margin: 10px 0 0 61px;">下移
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  业务信息弹出层内容 end  -->
+
+    <!--  专题信息弹出框配置 添加图层 start -->
+    <div id="addBusinessLayerDiv" style="display: none">
+        <form class="layui-form" action="">
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">图层配置信息（layerMap）</label>
+                <div class="layui-input-block">
+                    <input v-for="(value, key) in layerMap" :subjectAddLayer="value.name" lay-filter="pYx"
+                           type="checkbox" :name="key"
+                           lay-skin="primary"
+                           :title="value.name">
+                </div>
+            </div>
+            <button style="display: none" id="layerBusinessSubmit" type="submit" class="layui-btn" lay-submit=""
+                    lay-filter="layerSubmit">立即提交
+            </button>
+        </form>
+    </div>
+    <!--  专题信息弹出框配置 添加图层  end-->
+    <button class="layui-btn layui-btn-primary" @click="baseInfoSubmit()">基本信息提交</button>
+</div>
+<script type="text/javascript">
+    layui.use(['element', 'layer', 'form'], function () {
+        var element = layui.element,
+            layer = layui.layer,
+            form = layui.form;
+
+        var layerSettingVue = new Vue({
+            el: '#layerSetting',
+            data: {
+                globalMapConfig: globalMapConfig,
+                businessConfig: businessConfig,
+                layerMap: layerMap,
+
+                businessLayerIsEdit: false, // 用于判断businessConfig 中的layers 是进行新增还是编辑
+                businessSubjectIsEdit: true, // 用于判断businessConfig 中的专题 新增还是编辑
+                businessLayerIsEditObj: {},
+
+                businessConfigLayersStore: {}, // 用于专题中的图层不能重复添加使用
+                businessConfigAddObj: null,// 初始化新增obj
+
+                layerInfoObj: null,//编辑图层信息时存储的对象
+                businessInfoObj: null,// 选项卡3 编辑专题信息时存储的对象
+                layerMapInitialKey: '', //存储初始layerMap  key
+                newPropertiesSum: [],// 选项卡2新增图层属性模板
+                newBusinessSum: [],// 选项卡3新增业务专题模板
+            },
+
+            methods: {
+                // 用于图层信息弹窗  表单提交使用
+                formRender: function () {
+                    var that = this;
+                    form.on('submit(layerSubmit)', function (data_) {
+
+                        // 编辑业务信息  图层属性时候
+                        if (that.businessLayerIsEdit) {
+                            that.$set(that.businessLayerIsEditObj, 'layer', that.layerMap[Object.keys(data_.field)[0]]);
+                        } else {
+                            for (key in data_.field) {
+                                that.businessInfoObj.layers.unshift({
+                                    layer: that.layerMap[key],
+                                    show: false,
+                                    select: false,
+                                    opacity: 1,
+                                    analysis: true//是否叠加分析
+                                })
+                            }
+                        }
+                        return false;
+                    });
+
+                },
+                //图层信息中添加属性
+                addProperties: function () {
+                    for (var i = 0; i < $('input[markName="database"]').length; i++) {
+                        if ($('input[markName="database"]').eq(i + 1).val() == $('input[markName="database"]').eq(0).val()) {
+                            layer.msg("数据库字段名称已存在", {icon: 5});
+                            return
+                        }
+                    }
+                    this.newPropertiesSum.unshift('');
+                },
+
+                //图层信息中删除属性
+                delProperty: function (index) {
+                    if (typeof index === 'number') {
+                        this.newPropertiesSum.splice(index, 1);
+                    } else {
+                        this.$delete(this.layerInfoObj.properties, index)
+                    }
+                },
+
+                // 处理 引用数据类型保留 对象指针 不进行指针解析
+                stringifyMethods: function (obj) {
+                    var text = JSON.stringify(obj.map(function (business) {
+                        var layers = business.layers.map(function (layer) {
+                            for (var k in layerMap) {
+                                if (layerMap[k] == layer.layer) {
+                                    layer.layer = 'layerMap.' + k;
+                                    break;
+                                }
+                            }
+                            var text = '{';
+                            for (var k in layer) {
+                                if (k == 'layer') {
+                                    text += '\'' + k + '\':' + layer[k];
+                                } else {
+                                    console.log(layer[k]);
+                                    if (typeof layer[k] == 'string') {
+                                        text += '\'' + k + '\':' + '\'' + layer[k] + '\'';
+                                    } else {
+                                        text += '\'' + k + '\':' + layer[k];
+                                    }
+                                }
+                                text += ',';
+                            }
+                            text = text.substring(0, text.length - 1);
+                            text += '}';
+                            return text;
+                        });
+                        var text = '{';
+                        for (var k in business) {
+                            if (k == 'layers') {
+                                text += '\'' + k + '\':' + layers;
+                            } else {
+                                if (typeof business[k] == 'string') {
+                                    text += '\'' + k + '\':' + '\'' + business[k] + '\'';
+                                } else {
+                                    text += '\'' + k + '\':' + business[k];
+                                }
+
+                            }
+                            text += ',';
+                        }
+                        text = text.substring(0, text.length - 1);
+                        text += '}';
+                        return text;
+                    })).replace(/"/ig, '');
+                    console.log(text);
+                    return text;
+                },
+
+                //配置文件信息提交
+                baseInfoSubmit: function () {
+                    var that = this;
+                    var baseInfoVar = 'var globalMapConfig = ' +JSON.stringify(this.globalMapConfig)//JSON.stringify(this.globalMapConfig);
+                    var layerMapInfoVar = 'var layerMap = ' + JSON.stringify(that.layerMap);//JSON.stringify(this.layerMap);
+                    var businessConfigInfoVar = 'var businessConfig = ' + this.stringifyMethods(this.businessConfig);//JSON.stringify(this.businessConfig);
+                    // console.log(baseInfoVar);
+                    // console.log(layerMapInfoVar);
+                    console.log(businessConfigInfoVar);
+                },
+
+                // 第二个选项卡 删除图层
+                delLayerAction: function (key, value) {
+                    this.$delete(this.layerMap, key);
+                },
+
+                // 第二个选项卡  图层信息触发
+                layerAction: function (objKey, objValue) {
+                    console.log(objKey, objValue);
+                    var that = this;
+                    // 初始化点击 tab2 中打开新增与编辑 视图中 新增属性出现的多余dom问题
+                    this.newPropertiesSum = [];
+                    // 取消时候使用
+                    var In = true;
+                    if (In) {
+                        localStorage.setItem("objValueStore", JSON.stringify(objValue));
+                        !In;
+                    }
+
+                    /********************添加图层信息触发***********************/
+                    if (objKey == undefined) {
+                        this.layerInfoObj = {};
+                        var layer3 = layer.open({
+                            type: 1
+                            , title: '图层信息'
+                            , offset: '100px'
+                            , area: ['95%', '80%']
+                            , shade: .6
+                            , maxmin: true
+                            , content: $('#uis')
+                            , zIndex: layer.zIndex// layer.zIndex
+                            , btn: ['提交', '关闭']
+                            , yes: function () {
+                                var simpleName = $('#layerMapMsgPanel').find('input[name="simpleName"]').val();
+                                for (key in layerMap) {
+                                    if (simpleName == key) {
+                                        layer.msg('图层简称已存在,不能重复', {icon: 5});
+                                        return
+                                    }
+                                }
+                                var newAddlayerMapMsg = {};
+                                newAddlayerMapMsg["properties"] = {};
+                                for (var i = 0; i < $('#layerMapMsgPanel input').length; i++) {
+                                    newAddlayerMapMsg[$('#layerMapMsgPanel input').eq(i).attr('name')] = $('#layerMapMsgPanel input').eq(i).val()
+                                }
+
+                                for (var k = 0; k < $('.newPropertiesItem').length; k++) {
+                                    var DatebaseName = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesDatebaseName"]').val();
+                                    if (DatebaseName == '') {
+                                        continue;
+                                    }
+                                    var name = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesName"]').val();
+                                    var title = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesTitle"]').val();
+                                    var show = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesTitleShow"]').val();
+                                    var propertiesInnerObj = {};
+                                    propertiesInnerObj['name'] = name;
+                                    propertiesInnerObj['title'] = title;
+                                    propertiesInnerObj['show'] = show;
+                                    newAddlayerMapMsg["properties"][DatebaseName] = propertiesInnerObj
+                                }
+                                that.$set(that.layerMap, simpleName, newAddlayerMapMsg);
+                                layer.close(layer3);
+                            }
+                        });
+                        return
+                    }
+                    /********************编辑图层信息触发***********************/
+                    // 存储初始layerMap  key
+                    this.layerMapInitialKey = objKey;
+                    // 获取layerMap value
+                    this.layerInfoObj = objValue;
+                    this.layerInfoObj.simpleName = objKey;
+                    var layer1 = layer.open({
+                        type: 1
+                        , title: '图层信息'
+                        , offset: '100px'
+                        , area: ['95%', '80%']
+                        , shade: .6
+                        , maxmin: true
+                        , zIndex: layer.zIndex// layer.zIndex
+                        , content: $('#uis')
+                        , btn: ['提交', '关闭']
+                        , yes: function () {
+                            // 修改 layerMap 时候 修改后的key 不能和其他key 一样 否则会出现对象覆盖问题
+                            var simpleName = $('#layerMapMsgPanel').find('input[name="simpleName"]').val();
+                            for (key2 in that.layerMap) {
+                                if (key2 == objKey) {
+                                    continue;
+                                } else if (key2 == simpleName) {
+                                    layer.msg('图层简称已存在,不能重复', {icon: 5});
+                                    return
+                                }
+                            }
+
+                            // 处理数据库字段名称改变时情况
+                            if (that.layerInfoObj.simpleName !== that.layerMapInitialKey) {
+                                that.layerMap[that.layerInfoObj.simpleName] = that.layerMap[that.layerMapInitialKey];
+                                delete that.layerMap[that.layerMapInitialKey];
+                            }
+
+                            for (var k = 0; k < $('.newPropertiesItem').length; k++) {
+                                var DatebaseName = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesDatebaseName"]').val();
+                                if (DatebaseName == '') {
+                                    continue;
+                                }
+                                var name = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesName"]').val();
+                                var title = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesTitle"]').val();
+                                var show = $('.newPropertiesItem').eq(k).find('input[name="newPropertiesTitleShow"]').val();
+                                var propertiesInnerObj = {};
+                                propertiesInnerObj['name'] = name;
+                                // name.split(',').forEach(function (ele, index) {
+                                //     if (index > 0) {
+                                //         propertiesInnerObj['name' + index] = ele;
+                                //     } else {
+                                //         propertiesInnerObj['name'] = ele;
+                                //     }
+                                // });
+                                propertiesInnerObj['title'] = title;
+                                propertiesInnerObj['show'] = show;
+                                that.layerInfoObj.properties[DatebaseName] = propertiesInnerObj
+                            }
+                            // var baseLayerMapVar = 'var layerMap = ' + JSON.stringify(that.layerMap).replace(/"true"/ig, true).replace(/"false"/ig, false);
+                            // console.log("layerMap确认修改时：", that.layerMap);
+                            layer.close(layer1);
+                        }
+                        , btn2: function () {
+                            that.layerMap[objKey] = JSON.parse(localStorage.getItem('objValueStore'));
+                            localStorage.removeItem("objValueStore");
+                            layer.close(layer1);
+
+                        }
+                        , cancel: function () {
+                            that.layerMap[objKey] = JSON.parse(localStorage.getItem('objValueStore'));
+                            localStorage.removeItem("objValueStore");
+                            // var baseLayerMapVar = 'var layerMap = ' + JSON.stringify(that.layerMap); //unEditLayerMap;
+                            // console.log("layerMap取消修改时使用原始值：" + baseLayerMapVar);
+                            layer.close(layer1);
+                        }
+                        , zIndex: layer.zIndex
+                    });
+                },
+
+                //  操作专题 添加专题中的图层
+                addBusinessLayer: function () {
+                    var that = this;
+                    this.businessLayerIsEdit = false;
+                    var addBusinessLayer_layer = layer.open({
+                        type: 1
+                        , title: '图层信息'
+                        , offset: '100px'
+                        , area: ['60%', '50%']
+                        , shade: .6
+                        , maxmin: true
+                        , zIndex: layer.zIndex// layer.zIndex
+                        , content: $('#addBusinessLayerDiv')
+                        , btn: ['提交', '关闭']
+                        , yes: function () {
+                            $('#layerBusinessSubmit').click();
+                            layer.close(addBusinessLayer_layer);
+                            return false
+                        }
+                        , btn2: function () {
+                            layer.close(addBusinessLayer_layer);
+                        }
+                        , success: function () {
+                            $('#addBusinessLayerDiv form')[0].reset();
+                            $('input[subjectAddLayer]').prop('disabled', false);
+                            for (var j = 0; j < that.businessInfoObj.layers.length; j++) {
+                                // 处理重复的图层不能重复添加的问题
+                                for (key in that.layerMap) {
+                                    if (that.layerMap[key]["name"] == that.businessInfoObj.layers[j].layer.name) {
+                                        var exitLayer = that.businessInfoObj.layers[j].layer.name;
+                                        $('input[subjectAddLayer="' + exitLayer + '"]').prop('disabled', true);
+                                    }
+                                }
+                            }
+                            form.render();
+                        }
+                    })
+                },
+
+                // 操作专题 删除专题中的图层
+                businessLayerDel: function (index) {
+                    this.businessInfoObj.layers.splice(index, 1);
+                },
+                // 操作专题 新增/修改  专题
+                subjectAction: function (obj, index) {
+                    console.log(obj);
+                    var that = this;
+                    /********************操作专题    新增操作***********************/
+                    if (obj == undefined) {
+                        this.businessSubjectIsEdit = false;
+                        this.businessInfoObj = {
+                            name: '',// 专题英文名称
+                            title: '',//专题名称
+                            layers: []
+                        };
+                        var businessConfigAdd = layer.open({
+                            type: 1
+                            , title: '新增专题'
+                            , offset: '100px'
+                            , area: ['95%', '80%']
+                            , shade: .6
+                            , maxmin: true
+                            , content: $('#subject')
+                            , btn: ['提交', '关闭']
+                            , yes: function () {
+                                // 业务信息  专题名称 重复校验 subjectEN
+                                var subjectInputEn = $('input[name=subjectEN]').val();
+                                for (var i = 0; i < that.businessConfig.length; i++) {
+                                    if (that.businessConfig[i].name == subjectInputEn) {
+                                        layer.msg("专题英文名称已存在", {icon: 5});
+                                        return;
+                                    }
+                                }
+                                that.businessInfoObj.title = $('input[name=subjectCN]').val();
+                                that.businessInfoObj.name = $('input[name=subjectEN]').val();
+                                that.businessConfig.push(that.businessInfoObj);
+                                layer.close(businessConfigAdd);
+                            }
+                        });
+                        return
+                    }
+                    this.businessInfoObj = obj;
+                    /***************操作专题  修改操作********************/
+                    this.businessSubjectIsEdit = true;
+                    var layer2 = layer.open({
+                        type: 1
+                        , title: '业务信息'
+                        , offset: '100px'
+                        , area: ['95%', '80%']
+                        , shade: .6
+                        , maxmin: true
+                        , content: $('#subject')
+                    });
+                },
+
+                //  操作专题 删除专题
+                subjectDel: function (index) {
+                    this.$delete(this.businessConfig, index);
+                },
+
+                // 操作专题 中的图层层级关系 向上一层
+                businessLayerUp: function (item, index) {
+                    var holderItem = item;
+                    this.$delete(this.businessInfoObj.layers, index);
+                    this.businessInfoObj.layers.splice(index - 1, 0, holderItem)
+                },
+
+                // 操作专题 中的图层层级关系 向下一层
+                businessLayerDown: function (item, index) {
+                    var holderItem = item;
+                    this.$delete(this.businessInfoObj.layers, index);
+                    this.businessInfoObj.layers.splice(index + 1, 0, holderItem)
+                }
+            },
+            beforeMount: function () {
+                // 图层初始化
+                for (key in this.layerMap) {
+                    this.layerInfoObj = this.layerMap[key];
+                    this.layerInfoObj.simpleName = key;
+                    break;
+                }
+                // 专题初始化
+                this.businessInfoObj = this.businessConfig[0];
+            },
+
+            mounted: function () {
+                var that = this;
+                this.formRender();
+                // form.on('checkbox(pYx)', function (data) {
+                //     if (that.businessLayerIsEdit) {
+                //         $('#addBusinessLayerDiv form')[0].reset();
+                //         $(data.elem).prop("checked", true);
+                //         form.render();
+                //     }
+                // });
+            }
+        });
+    })
+
+</script>
+</body>
+</html>

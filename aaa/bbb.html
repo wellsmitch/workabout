@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="./mui/css/mui.css">
+    <script type="text/javascript">
+        var bw = (document.documentElement.clientWidth / 7.5) + "px";
+        var htmlTag = document.getElementsByTagName("html")[0];
+        htmlTag.style.fontSize = bw;
+    </script>
+    <style type="text/css">
+        body {
+            background: #ffffff;
+        }
+        .fl {
+            float: left;
+        }
+        .fr {
+            float: right;
+        }
+        .overflow {
+            overflow: hidden;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #readInfo .mui-input-group input:not([type=radio]), .mui-input-group textarea {
+            border: 1px solid #e6e6e6;
+        }
+
+        #readInfo .mui-input-group input {
+            height: .52rem;
+            line-height: .52rem;
+            font-size: .24rem;
+        }
+
+        #readInfo .mui-input-group td {
+            font-size: .24rem;
+        }
+        #readInfo .mui-input-group:after {
+            background: #ffffff;
+        }
+        #readInfo .mui-input-group tr td:nth-child(1) {
+            padding-bottom: .2rem;
+            width: 1.8rem;
+            text-align: left;
+        }
+
+        #readInfo .mui-input-group .tdValue input[endMark] {
+            width: 90%;
+            float: left;
+        }
+
+        #readInfo .mui-input-group .tdValue input[endMark] + span {
+            font-size: .24rem;
+            padding-left: .2rem;
+        }
+
+        #readInfo .mui-input-row {
+            clear: initial;
+        }
+
+        #shangchaun {
+            width: .88rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            background: #2081ea;
+            color: #ffffff;
+            position: absolute;
+            top: .46rem;
+            right: 1.5rem;
+            z-index: 2;
+            border-radius: .1rem
+        }
+        .delFile {
+            width: .88rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            background: #e70012;
+            color: #ffffff;
+            border-radius: .1rem;
+            margin-right: .2rem;
+            margin-top: .16rem;
+        }
+        .title {
+            width: 4.5rem;
+            padding-left: .2rem;
+            font-size: .2rem;
+            line-height: .66rem;
+        }
+        #fileList li {
+            margin: .2rem 0;
+        }
+    </style>
+    <script src="./vue.js"></script>
+    <script src="./jquery.min.js"></script>
+    <link rel="stylesheet" href="./mui/css/mui.picker.min.css">
+</head>
+<body>
+<div id="infoWraper" class="mui-content" style="background: #ffffff">
+    <!--  基本信息 start  -->
+    <div style="padding: 0 .4rem">
+
+        <div id="readInfo">
+            <form class="mui-input-group" id="zcgl" style="font-size: .24rem;color: #696969">
+                <div style="padding: 0 10px; box-sizing: content-box">
+                    <div style="background: #fff; font-size: 16px; line-height: 48px; text-align: center;font-weight: 600;">
+                        基本信息
+                    </div>
+                    <table id="baseInfoTable" style="border-collapse: collapse;width: 100%;">
+                        <tr>
+                            <td class="tdLable">案卷名称</td>
+                            <td class="tdValue">
+                                <input type="text" v-model="caseName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdLable">借阅处室</td>
+                            <td class="tdValue">
+                                <input type="text" v-model="borrowOffice">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdLable">申请时间</td>
+                            <td class="tdValue">
+                                <input type="text" @click="pickTime1()" v-model="applyTime">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdLable">借阅经办人</td>
+                            <td class="tdValue">
+                                <input type="text" v-model="borrowAgent">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdLable">档案室经办人</td>
+                            <td class="tdValue">
+                                <input type="text" v-model="archivesAgent">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdLable">卷宗土地证号</td>
+                            <td class="tdValue">
+                                <input type="text" v-model="landCertificateNo">
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <div style="background: #fff; font-size: 16px; line-height: 48px; text-align: center;font-weight: 600;">
+                            借阅信息
+                        </div>
+                        <table style="border-collapse: collapse;width: 100%;">
+                            <tr>
+                                <td class="tdLable">变更卷</td>
+                                <td class="tdValue">
+                                    <input endMark="卷" type="text" v-model="changeCase">
+                                    <span>卷</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">抵押卷</td>
+                                <td class="tdValue">
+                                    <input endMark="卷" type="text" v-model="mortgagedCase">
+                                    <span>卷</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">地调卷</td>
+                                <td class="tdValue">
+                                    <input endMark="卷" type="text" v-model="geologicalSurveyCase">
+                                    <span>卷</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">其他卷</td>
+                                <td class="tdValue">
+                                    <input endMark="卷" type="text" v-model="otherCase">
+                                    <span>卷</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">借阅天数</td>
+                                <td class="tdValue">
+                                    <input endMark="天" type="text" v-model="borrowDay">
+                                    <span>天</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">是否整卷复印</td>
+                                <td class="tdValue">
+                                    <div class="mui-input-row mui-radio mui-left" style="width: 50%;float: left">
+                                        <label>是</label>
+                                        <input name="radio1" type="radio">
+                                    </div>
+                                    <div class="mui-input-row mui-radio mui-left" style="width: 50%;float: left">
+                                        <label>否</label>
+                                        <input name="radio1" checked="checked" type="radio">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">是否携带出局</td>
+                                <td class="tdValue">
+                                    <input type="text" v-model="carryOut">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <div style="background: #fff; font-size: 16px; line-height: 48px; text-align: center;font-weight: 600;">
+                            归还信息
+                        </div>
+
+                        <table style="border-collapse: collapse;width: 100%;">
+                            <tr>
+                                <td class="tdLable">还卷人</td>
+                                <td class="tdValue">
+                                    <input type="text" v-model="returnPeople">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">归还时间</td>
+                                <td class="tdValue">
+                                    <input type="text" @click="pickTime()" v-model="returnTime">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">档案室接卷人</td>
+                                <td class="tdValue">
+                                    <input type="text" v-model="archivesReceptionPeople">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">是否核对扫描卷</td>
+                                <td class="tdValue">
+                                    <input type="text" v-model="checkScanningCopy">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable" style="text-align: center">备注</td>
+                                <td class="tdValue">
+                                    <textarea name="" id="" cols="30" rows="3"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--  基本信息 end  -->
+
+    <!--  附件 start  -->
+    <div>
+        <div style="position: relative;text-align: center;;line-height: 1.06rem;border-top: 1px soli    d #bebebe;">
+            附件
+            <div id="shangchaun">上传</div>
+        </div>
+        <ul id="fileList" style="padding: 0 .4rem">
+            <li v-for="(item, index) in fileList" v-show="index < spreadSum">
+                <div class='overflow'>
+                    <img class="fl" style="width: .7rem;height: .7rem;" :src="item.url" alt="">
+                    <div class="fl title">{{item.title}}</div>
+                    <div class="fr delFile">删除</div>
+                </div>
+            </li>
+        </ul>
+        <div>
+            <button class="fr" style="border: none;margin-right: .5rem;color: #3472c5;" @click="sq($event)">{{isSpread}}</button>
+        </div>
+    </div>
+    <!--  附件 end  -->
+
+</div>
+<script src="./mui/js/mui.js"></script>
+<script src="./mui/js/mui.picker.min.js"></script>
+<script src="档案借阅含提交.js"></script>
+</body>
+</html>

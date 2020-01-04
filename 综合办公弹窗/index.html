@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>综合办公</title>
+    <link rel="stylesheet" href="../css/mui.css">
+    <style>
+        .mui-input-row label {
+            width: 26%;
+            padding: 11px 6px;
+        }
+
+        .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea {
+            width: 74%;
+        }
+
+        #tex {
+            overflow: hidden;
+        }
+
+        @keyframes action_scale {
+            0% {
+                transform: scale(0.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes action_scaleOut {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.2);
+                opacity: 0;
+            }
+        }
+
+        #tex form label {
+            color: #4d4d4d;
+        }
+
+        #tex .mui-input-group .mui-input-row:after {
+            background: transparent;
+        }
+
+        #tex .mui-input-group:before {
+            background: transparent;
+        }
+
+        #tex .mui-input-group:after {
+            background: transparent;
+        }
+
+        #tex input {
+            border: 1px solid #e6e6e6;
+            height: 30px;
+        }
+    </style>
+    <script src="../JS/jquery.min.js"></script>
+</head>
+<body>
+<button id="action_scaleOut">缩放淡出</button>
+<button id="action_scale">缩放淡入</button>
+
+
+<div id="tex"
+     style="display:none;width: 100vw;height: 100vh;background:rgba(170,170,170,.3);position: absolute;top: 0;z-index:9999;margin: 0 auto">
+    <div style="width: 300px;background: #ffffff;margin: 100px auto;padding: 6px;font-size: 12px">
+        <div style="text-align: center;line-height: 40px">资产明晰信息</div>
+        <form class="mui-input-group">
+            <div class="mui-input-row">
+                <label>序号</label>
+                <input type="text">
+            </div>
+            <div class="mui-input-row">
+                <label>资产名称</label>
+                <input type="text">
+            </div>
+            <div class="mui-input-row">
+                <label>型号及规格</label>
+                <input type="text">
+            </div>
+            <div class="mui-input-row">
+                <label>数量</label>
+                <input type="text">
+            </div>
+            <div class="mui-input-row">
+                <label>价值（元）</label>
+                <input type="text">
+            </div>
+            <div class="mui-button-row">
+                <div style="width: 200px;font-size: 16px;line-height: 30px;color: #fff;background: #3072fa;border-radius: 8px;margin: 0 auto;text-align: center">
+                    确定
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+<div style="width: 300px;display:none;font-size: 12px">
+    <div>资产明晰信息</div>
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label>序号</label>
+            <input type="text">
+        </div>
+        <div class="mui-input-row">
+            <label>资产名称</label>
+            <input type="text">
+        </div>
+        <div class="mui-input-row">
+            <label>型号及规格</label>
+            <input type="text">
+        </div>
+        <div class="mui-input-row">
+            <label>数量</label>
+            <input type="text">
+        </div>
+        <div class="mui-input-row">
+            <label>价值（元）</label>
+            <input type="text">
+        </div>
+        <div class="mui-button-row">
+
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function cssScale(domSelector, showParam) {
+        var boo = 0;
+        var canUse = document.getElementsByTagName("body")[0].style;
+        if (typeof canUse.animation != "undefined" || typeof canUse.WebkitAnimation != "undefined") {
+            boo = 1;/*支持动画*/
+        } else {
+            boo = 0;/*不支持动画*/
+        }
+
+        function actionIn(obj, actionName, time, speed) {
+            $(obj).show();
+            if (boo == 1) $(obj).css({
+                "animation": actionName + " " + time + "s" + " " + speed,
+                "animation-fill-mode": "forwards"
+            });
+        }
+
+        /*obj,actionName,speed都是 string,time(秒)是int类型*/
+        function actionOut(obj, actionName, time, speed) {
+            if (boo == 1) {
+                $(obj).css({"animation": actionName + " " + time + "s" + " " + speed});
+                var setInt_obj = setInterval(function () {
+                    $(obj).hide();
+                    clearInterval(setInt_obj);
+                }, time * 1000);
+            } else $(obj).hide();
+        }
+
+        actionIn(domSelector, showParam ? 'action_scale' : 'action_scaleOut', .3, "ease-in");
+    }
+
+
+    $('#action_scale').click(function () {
+        cssScale("#tex", true)
+    });
+    $('#action_scaleOut').click(function () {
+        cssScale("#tex", false)
+    });
+
+    $('#tan').click(function () {
+
+    });
+</script>
+<script type="text/javascript">
+	var asd = 1
+</script>
+<script type="text/javascript">
+    var asd = 2
+</script>
+<script type="text/javascript">
+    console.log(asd)
+</script>
+</body>
+</html>

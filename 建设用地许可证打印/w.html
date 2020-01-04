@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style media="print">
+    .noprint {
+        display: none
+    }
+</style>
+<object id="factory" style="display:none" viewastext classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814"
+        codebase="http://www.meadroid.com/scriptx/ScriptX.cab#Version=5,60,0,360"></object>
+<script type="text/javascript">
+    window.onload = function () {
+        factory = document.querySelector('#factory');
+        //factory.printing.paperSize = "A3"
+        factory.printing.header = ""
+        factory.printing.footer = ""
+        factory.printing.portrait = false
+        idPrint1.disabled = false; // enable UI button
+        idPrint2.disabled = false;
+        idPrint3.disabled = false;
+        idPrint4.disabled = false;
+        factory.printing.leftMargin = 0
+        factory.printing.topMargin = 5
+        factory.printing.rightMargin = 5
+        factory.printing.bottomMargin = 5
+    }
+</script>
+<span style="text-decoration:underline">下划线</span>
+<U>dsfaldj但是拉夫；飞机士大夫按时地方螺丝钉机发射点</U>
+<div class=noprint>
+    <input id="idPrint1" type="button" value="打印本页"
+           onclick="factory.printing.Print(false)">
+    <input id="idPrint2" type="button" value="页面设置"
+           onclick="factory.printing.PageSetup()">
+    <input id="idPrint3" type="button" value="打印预览"
+           onclick="factory.printing.Preview()">
+    <input id="idPrint4" type="button"
+           onclick="window.close()" value="关闭窗口">
+</div>
+<br/>
+<table width="720" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td bgcolor="#0099ff">
+            这里是你要打印的内容，上面的按钮不会被打印出来<br/>
+            factory.printing.paperSize = "A3"
+        </td>
+    </tr>
+</table>
+</body>
+</html>

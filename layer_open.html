@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="layui-v2.4.5/layui/layui.js"></script>
+    <script src="JS/polyfill7.4.4.js"></script>
+    <script src="JS/browser5.5.23.js"></script>
+    <link rel="stylesheet" href="layui-v2.4.5/layui/css/layui.css">
+
+</head>
+
+<body>
+<button>执行layer.open方法</button>
+<button>执行layer.open 如果是页面层方法</button>
+<button>执行layer.open方法如果是页面层通过id找到的内容</button>
+<button>执行layer.open方法 iframe</button>
+<button>执行layer.open方法 iframe1</button>
+<button id="tip">执行layer.open方法 tips</button>
+<div id="aaa">我是通过id指向到的内容</div>
+
+<script type="text/babel">
+    // layui.use('layer',function(){
+    //     layui.layer.config({
+    //         anim:-1
+    //     })
+    // });
+
+    let aaaaa = 324242343;
+
+	layui.use(['jquery','layer'],function () {
+
+        var $ = layui.jquery,
+         layer = layui.layer;
+
+       let open1 = layer.open({
+            type: 1,
+            title : '地块详情',
+            offset: '50px',
+            area: ['336px', '460px'],
+            content: `<div>${aaaaa}</div>`
+
+        });
+
+        // layer模块相关动作的动画类型
+        layer.config({
+            anim:-1
+        });
+        // layer.alert('酷毙了', {icon: -1});
+        // layer.msg('酷毙了', {icon: 6});
+        // layer.load(3);
+         $('button').eq(0).click(function () {
+             layer.open({
+                  type: 2 //此处以iframe举例
+                  ,title: '当你选择该窗体时，即会在最顶端'
+                  ,area: ['990px', '260px']
+                  // ,shade: 0 //属性不能重复使用否则会报错
+                  ,maxmin: true
+                  ,closeBtn:1//0,1,2
+                  ,shadeClose:true
+                  ,shade:.3 //即弹层外区域。默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+                  ,offset: 'auto'
+                  ,btnAlign:'c'
+                      [ //为了演示，随机坐标
+                      Math.random()*($(window).height()-300)
+                      ,Math.random()*($(window).width()-390)
+                  ]
+                 ,content: '//layer.layui.com/test/settop.html'
+                  ,btn: ['继续弹出', '全部关闭'] //只是为了演示
+                  // ,yes: function(){
+                  //     $(that).click();
+                  // }
+                  // ,btn2: function(){
+                  //     layer.closeAll();
+                  // }
+                  // ,zIndex: layer.zIndex //重点1
+                  // ,success: function(layero){
+                  //     layer.setTop(layero); //重点2
+                  // }
+              })
+          });
+
+        /*  /!*
+         如果是页面层
+         *!/
+         $('button').eq(1).click(function () {
+             layer.open({
+                 type: 1,
+                 content: '<h1>我是H1的内容</h1>' //这里content是一个普通的String
+             });
+         });
+         /!*
+                如果是页面层通过id找到的内容
+                *!/
+         $('button').eq(2).click(function () {
+             layer.open({
+                 type: 1,
+                 content: $('#aaa') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+             });
+         });
+
+         /!*
+         如果是iframe层
+         *!/
+         $('button').eq(3).click(function () {
+             // $.post('url', {}, function(str){
+                 layer.open({
+                     type: 1,
+                     content: '<iframe src="./a.html" frameborder="0"></iframe>' //注意，如果str是object，那么需要字符拼接。
+                 });
+             // });
+         });
+
+         $('button').eq(4).click(function () {
+             layer.open({
+                 type: 2,
+                 content: 'http://sentsin.com' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+             })
+         });
+
+
+         /!*
+         如果是用layer.open执行tips层
+         *!/
+         $('button').eq(5).click(function () {
+             layer.open({
+                 type: 4,
+                 content: ['内容内容内容内容内容内容内容内容内容内容内容', '#tip'] //数组第二项即吸附元素选择器或者DOM
+                 // content: ['内容', '#id'] //数组第二项即吸附元素选择器或者DOM
+             });
+         });*/
+
+    })
+</script>
+</body>
+</html>

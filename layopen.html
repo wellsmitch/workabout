@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="layui-v2.4.5/layui/layui.js"></script>
+    <link rel="stylesheet" href="layui-v2.4.5/layui/css/layui.css">
+</head>
+<body>
+<button>open</button>
+<!--<iframe src="" frameborder="0" style="border: 1px saddlebrown"></iframe>-->
+<div id="btnDiv">
+    <button id="btn">iframe页面open</button>
+</div>
+</body>
+
+<script type="text/javascript">
+    var yyy = 55555;
+    layui.use(['jquery', 'layer'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer;
+        $('button').click(function () {
+            layer.open({
+                type: 1,
+                title: '在线调试'
+                , content: $("#btnDiv")
+            });
+        })
+
+        $("#btn").click(function () {
+            window.top.layui.layer.open({
+                type: 2,
+                title: '在线调试'
+                , content: './layopen3.html'
+            });
+        })
+
+    })
+
+    function flatten(origin) {
+        while (origin.some(item => Array.isArray(item))) {
+            origin = [].concat(origin);
+        }
+        return origin;
+    }
+
+    var arr = [1, [2, 3, [4]], "a", "b", ["c", "d"], [["d"], "e"], "f"];
+    console.log(flatten(arr)) // [1, 2, 3, 4, "a", "b", "c", "d", "d", "e", "f"]
+
+</script>
+</html>

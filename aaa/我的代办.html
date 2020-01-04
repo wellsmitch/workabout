@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+    <link rel="stylesheet" href="mui/css/mui.css">
+    <script src="mui/js/mui.js"></script>
+    <script src="vue.js"></script>
+    <style>
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+
+        #searchListAction {
+            border-bottom: 1px solid #d1d1d1;
+        }
+
+        #searchListAction > div {
+            width: 50%;
+            font-size: .32rem;
+            text-align: center;
+            line-height: .9rem;
+            color: #545454;
+        }
+
+        body {
+            background: #ffffff;
+        }
+        #qiehuan li {
+            font-size: 14px;
+            line-height: 38px;
+            text-align: center;
+            /*border-bottom: 1px solid #999;*/
+        }
+
+        .active_css{
+            background-color: #e8e2e2;
+            /*border-bottom: 1px solid #177be6;*/
+            color: #177be6;
+            text-decoration: none;
+        }
+        .active_css a {
+            background-color: #e8e2e2;
+            color: #177be6;
+        }
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+        .mui-bar-backdrop.mui-backdrop {
+            background: rgba(0, 0, 0, .3);
+
+        }
+    </style>
+    <script type="text/javascript">
+        var bw = (document.documentElement.clientWidth / 7.5) + "px";
+        var htmlTag = document.getElementsByTagName("html")[0];
+        htmlTag.style.fontSize = bw;
+    </script>
+    <link rel="stylesheet" href="header_fonts/iconfont.css">
+    <link rel="stylesheet" href="mui/css/mui.poppicker.css">
+    <script src="mui/js/mui.poppicker.js"></script>
+
+</head>
+<body>
+<div id="searchListVue">
+    <div>
+        <div id="searchList">
+            <div class="overflow" id="searchListAction" v-show="pickCondition">
+                <div class="fl" @click="searchAction()">
+                    <span class="iconfont icon-chazhao"></span>
+                    <span>搜索</span>
+                </div>
+                <div class="fl">
+                    <span class="iconfont icon-shaixuan"></span>
+                    <a href="#Popover_1">筛选</a>
+                </div>
+            </div>
+            <div class="overflow" v-show="!pickCondition" style="display: none;background: #f9f9f9;height: .8rem;">
+                <input class="fl" type="text" id="searchInput" placeholder="搜索标题、标号、正文内容" style="padding: 0;border: none;background: #fff;margin: 0;height: .6rem;margin: .1rem;width: 6rem;font-size: .26rem">
+                <div class="fr" style="font-size: .28rem;line-height: .8rem;padding-right: .4rem;color: #469ccf;" @click="pickCancel()">取消</div>
+            </div>
+        </div>
+
+
+        <div id="Popover_1" class="mui-popover mui-bar-popover" style="width: 100px">
+            <div class="mui-popover-arrow"></div>
+            <ul class="mui-table-view" id="qiehuan">
+                <li @click="pop($event)"  class="active_css">
+                    <span class="iconfont icon-zhankai"></span>
+                    <a class="mui-control-item" id="makeEms">全&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;部</a>
+                </li>
+                <li @click="pop($event)">
+                    <span class="iconfont icon-wofaqide"></span>
+                    <a class="mui-control-item" href="#item1">信息发布</a>
+                </li>
+                <li @click="pop($event)">
+                    <span class="iconfont icon-danganjieyue"></span>
+                    <a class="mui-control-item" href="#item3">档案借阅</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#searchListVue',
+        data: {
+            pickCondition: true
+        },
+        methods: {
+            searchAction: function() {
+                this.pickCondition = false;
+                mui.focus(document.querySelector('#searchInput'));
+            },
+            pop: function (e) {
+                $(e.currentTarget).addClass('active_css').siblings().removeClass('active_css');
+                mui('#Popover_1').popover('toggle');//show hide toggle
+            },
+            pickCancel: function () {
+                this.pickCondition = true;
+            }
+        }
+    });
+</script>
+</body>
+</html>

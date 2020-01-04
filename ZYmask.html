@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="JS/jquery.min.js"></script>
+
+    <!--<script src="babel.js"></script>-->
+    <style>
+        div {
+
+        }
+    </style>
+    <link rel="stylesheet" href="layui-v2.4.5/layui/css/layui.css">
+</head>
+<body>
+<div id="m" style="width: 200px;height: 200px;border: 1px saddlebrown solid"></div>
+<button id="open">开</button>
+<button id="close">关</button>
+<div id="s" style="width: 800px;height: 800px">dddddddddddddddddddddddddd</div>
+<script type="text/javascript">
+
+    let a =`aaa`;
+    console.log(a);
+    /*
+    * domIdSelector  容器Id
+    *
+    * */
+	function ZYmask(domIdSelector, loadingMsg) {
+        loadingMsg = loadingMsg || '数据解析中';
+        this.domWraper = document.querySelector(domIdSelector);
+        this.domOrigin = document.createElement('div');
+        var height = Number(getComputedStyle(this.domWraper).height.replace(/px$/ig,''))/2 - 20 + 'px';
+        var width = Number(getComputedStyle(this.domWraper).height.replace(/px$/ig,''))/2 - 80 + 'px';
+        console.log(height, width);
+        var positionStyle = 'overflow: hidden;margin-top:'+ height + ';margin-left:' + width;
+        var loadingStyle = 'font-size: 30px;color: #c9c9c9;float: left';
+        var textStyle = 'float: left;font-size: 18px;line-height: 30px;color:#fff';
+        var wrapStyle = 'position: absolute;top:0;left:0;z-index: 999;width: 100%;height:100%;background: rgba(0,0,0,0.5);display: none;';
+        this.domOrigin.innerHTML = '<div style="'+ positionStyle +'\">'
+            +'<i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop" style="'+ loadingStyle +'\"></i><p style="'+ textStyle +'\">'+ loadingMsg + '</p>' +
+            '</div>';
+        this.domOrigin.setAttribute('style', 'position: absolute;top:0;left:0;zIndex: 999;width: 100%;height:100%;background: rgba(0,0,0,0.5);display: none;');
+        this.domOrigin.setAttribute('style', wrapStyle);
+        this.domWraper.style.position = 'relative';
+        this.domWraper.appendChild(this.domOrigin)
+    }
+    ZYmask.prototype.open = function () {
+        this.domOrigin.style.display = 'block'
+    };
+    ZYmask.prototype.close = function () {
+        this.domOrigin.style.display = 'none'
+    };
+
+    var t = new ZYmask('#m');
+
+    var s = new ZYmask('#s');
+
+
+
+    document.querySelector('#open').onclick = function () {
+        // t.open()
+        s.open()
+    };
+    document.querySelector('#close').onclick = function () {
+        // t.close()
+        s.close()
+
+    };
+</script>
+
+</body>
+<script type="text/javascript" src="JS/polyfill7.4.4.js"></script>
+<script type="text/javascript" src="JS/browser5.5.23.js"></script>
+</html>

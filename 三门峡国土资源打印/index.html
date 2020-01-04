@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../JS/jquery.min.js"></script>
+    <script src="../JS/jquery.PrintArea.js"></script>
+</head>
+<body>
+<div id="pageBottom" class="scale" style="font-weight: bolder">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "宋体";
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+
+        #pageBottom {
+            position: relative;
+            /*border: 1px solid #000000;*/
+            box-sizing: border-box;
+            width: calc(188mm - 19.05mm);
+            height: calc(242mm - 19.05mm);
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .Novisibile {
+            visibility: hidden;
+        }
+
+        .bottomBlock > div > div {
+            width: 16mm;
+            font-size: 4mm;
+            line-height: 8mm;
+        }
+
+        #msgWrite .overflow div:nth-child(2) {
+            padding-left: 6mm;
+        }
+        .border1mm {
+            border: 0.5mm solid #000000;
+        }
+    </style>
+
+
+    <div class="center printControl border1mm" style="font-size: 11mm;line-height: 44mm;letter-spacing: 3mm">三门峡市国土资源局</div>
+    <div class="center printControl" style="font-size: 9mm;line-height: 32mm;letter-spacing: 2mm;border-left: 0.5mm solid #000000;border-right: 0.5mm solid #000000;">不动产登记中心权籍档案</div>
+    <div class="border1mm" style="padding: 10mm 0 4mm 12mm;font-size: 6mm;line-height: 18mm;" id="msgWrite">
+        <div class="overflow">
+            <div class="printControl fl" style="">权利人</div>
+            <div class="fl">张三</div>
+        </div>
+        <div class="overflow">
+            <div class="printControl fl" style="">登记证明号</div>
+            <div class="fl">1234657498789</div>
+        </div>
+        <div class="overflow">
+            <div class="printControl fl" style="">权利类别</div>
+            <div class="fl">类别一</div>
+        </div>
+        <div class="overflow">
+            <div class="printControl fl" style="">坐落位置</div>
+            <div class="fl">郑州市二七区</div>
+        </div>
+        <div class="overflow">
+            <div class="printControl fl" style="">不动产单元号</div>
+            <div class="fl">123456789</div>
+        </div>
+
+    </div>
+
+    <div style="height: 4mm;border-left: 0.5mm solid #000000;border-right: 0.5mm solid #000000;"></div>
+    <div class="overflow">
+        <div class="fl overflow border1mm" style="font-size: 6mm;line-height: 22mm;width: 71mm">
+            <div class="fl printControl">本卷共</div>
+            <div class="fl center" style="width: 15mm">12</div>
+            <div class="fl printControl">件</div>
+            <div class="fl center" style="width: 15mm">12</div>
+            <div class="fl printControl">页</div>
+        </div>
+        <div class="overflow" style="font-size: 5mm;line-height: 11mm">
+            <div class="fl" style="width: 28mm">
+                <div>微机号</div>
+                <div>变更号</div>
+            </div>
+            <div class="fl" style="width: calc(100% - 30mm)">
+                <div>123456</div>
+                <div>456789</div>
+            </div>
+        </div>
+    </div>
+    <div class="overflow" style="padding-top: 8mm">
+        <!--  档案信息 -->
+        <div class="fl center bottomBlock">
+            <div class="overflow printControl">
+                <div class="fl">房间号</div>
+                <div class="fl">柜号</div>
+                <div class="fl">列号</div>
+                <div class="fl">层号</div>
+            </div>
+            <div class="overflow">
+                <div class="fl">123</div>
+                <div class="fl">123</div>
+                <div class="fl">123</div>
+                <div class="fl">123</div>
+            </div>
+        </div>
+        <!--全宗号-->
+        <div class="fr center bottomBlock">
+            <div class="overflow printControl">
+                <div class="fl">全宗号</div>
+                <div class="fl">目录号</div>
+                <div class="fl">案卷号</div>
+            </div>
+            <div class="overflow">
+                <div class="fl">123</div>
+                <div class="fl">123</div>
+                <div class="fl">123</div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<button id="printAction">打印</button>
+<script type="text/javascript">
+    var rotate = '<style id="scaleStyle" type="text/css">.scale {transform: rotateZ(-90deg); }</style>';
+    $('#printAction').click(function () {
+        // $('#pageBottom').append($(rotate));
+        $printControl = $('.printControl');
+        $printControl.css({
+            visibility: "hidden"
+        });
+        $('#pageBottom').printArea();
+        $printControl.css({
+            visibility: "visible"
+        });
+        // $('#scaleStyle').remove()
+    });
+</script>
+
+</body>
+</html>

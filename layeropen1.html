@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="layui-v2.4.5/layui/layui.js"></script>
+    <link rel="stylesheet" href="layui-v2.4.5/layui/css/layui.css">
+</head>
+<body>
+<h1>iframe页面</h1>
+<button>iframe页面open</button>
+</body>
+<script type="text/javascript">
+    layui.use(['jquery','layer'],function () {
+        var $ = layui.jquery,
+            layer = layui.layer;
+        var pp = parent
+        $('button').click(function () {
+            pp.layer.open({
+                type:2,
+                title: '在线调试'
+                ,content: './layeropen2.html'
+            });
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            width: 50%;
+            height: 50%;
+            position: relative;
+        }
+    </style>
+    <script src="JS/jquery.min.js"></script>
+</head>
+<body>
+<div id="container">
+    <!-- Left side -->
+    <div id="leftDiv"> This is the left side's content!</div>
+    <!-- Right side -->
+    <div id="rightDiv">
+        <!-- Actual resize handle -->
+        This is the right side's content!
+    </div>
+
+    <div id="bottomDiv">
+        <!-- Actual resize handle -->
+        This is the bottom side's content!
+    </div>
+</div>
+<script type="text/javascript">
+    Drag('#container', '#leftDiv', '#rightDiv', '#bottomDiv');
+    function Drag(containter, leftDom, rightDom, bottomDiv) {
+        var handle = document.createElement('div');
+        var bottomHandle = document.createElement('div');
+        handle.setAttribute('id', 'handle');
+        bottomHandle.setAttribute('id', 'bottomHandle');
+
+        $(rightDom).append(handle);
+        $(bottomDiv).append(bottomHandle);
+        $(handle).css({
+            position: 'absolute',
+            left: '-4px',
+            top: 0,
+            bottom: 0,
+            width: '8px',
+            cursor: 'w-resize',
+        });
+        $(bottomHandle).css({
+            position: 'absolute',
+            left: 0,
+            top: '-4px',
+            right: 0,
+            height: '8px',
+            cursor: 'n-resize'
+        });
+        /*样式初始化  start*/
+        $(containter).css({
+            width: '50%',
+            height: '50%',
+            position: 'relative'
+        });
+        $(leftDom).css({
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: '200px',
+            right: '100px',
+            background: '#fff5a1'
+        });
+        $(rightDom).css({
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            bottom: 0,
+            background: '#85fff3'
+        });
+        $(bottomDiv).css({
+            position: 'absolute',
+            left: 0,
+            bottom: 0,
+            background: '#ad72ff'
+        });
+        /*样式初始化  end*/
+        var isResizing = false,//横向控制
+            isResizing1 = false,//纵向控制
+            lastDownX = 0,
+            lastDownY = 0,
+            $containter = $(containter),
+            $leftDiv = $(leftDom),
+            $rightDiv = $(rightDom),
+            $bottomDiv = $(bottomDiv);
+        $bottomDiv.css({
+            top: $leftDiv.height(),
+            right: $rightDiv.width()
+        });
+
+        $('#handle').on('mousedown', function (e) {
+            isResizing = true;
+            isResizing1 = false;
+            lastDownX = e.clientX;
+        });
+
+        $(document).on('mousemove', function (e) {
+            console.log('offsetRight');
+            if(!isResizing1 && isResizing) {
+                var offsetRight = $containter.width() - (e.clientX - $containter.offset().left);
+
+                offsetRight = (offsetRight < 100) ?  100 :  offsetRight;
+                $leftDiv.css({'right': offsetRight});
+                $rightDiv.css({'left':  $leftDiv.width()});
+                $bottomDiv.css({
+                    top: $leftDiv.height(),
+                    right: $rightDiv.width()
+                });
+            }else if(!isResizing && isResizing1){
+                var offsetBottom = $containter.height() - (e.clientY - $containter.offset().top);
+                offsetBottom = (offsetBottom < 100) ? 100 : offsetBottom;
+                $leftDiv.css({'bottom': offsetBottom});
+                $bottomDiv.css({
+                    top: $leftDiv.height(),
+                    right: $rightDiv.width()
+                });
+            }
+        }).on('mouseup', function () {
+            isResizing = false;
+            isResizing1 = false;
+        });
+
+        // 上下
+        $('#bottomHandle').on('mousedown', function (e) {
+            isResizing1 = true;
+            isResizing = false;
+            lastDownY = e.clientY;
+        });
+    }
+</script>
+</body>
+</html>

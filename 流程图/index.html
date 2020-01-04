@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="../mui/css/mui.css">
+    <style type="text/css">
+        /*body a, body a:hover, body a:active, body a:visited, body a:link, body a:focus {*/
+            /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+            /*-webkit-tap-highlight-color: transparent;*/
+            /*outline: none;*/
+            /*!* background: none; *!*/
+            /*text-decoration: none;*/
+            /*color: #fff;*/
+        /*}*/
+
+        body header#process_advice_msg {
+            background-color: #1e80ea;
+            color: #fff;
+        }
+
+        #process_advice_msg .mui-title {
+            color: #ffffff;
+        }
+        .fl {
+            float: left;
+        }
+        .fr {
+            float: right;
+        }
+        .overflow {
+            overflow: hidden;
+        }
+    </style>
+    <script src="../mui/js/mui.js"></script>
+    <link rel="stylesheet" href="../layui-v2.4.5/layui/css/layui.css">
+    <script src="../layui-v2.4.5/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="../myfonts/iconfont.css">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" id="process_advice_msg">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">流程与办理</h1>
+</header>
+
+<div class="mui-content">
+    <div id="slider" class="mui-slider mui-fullscreen">
+        <div style="background: #fff;padding-bottom: 2px;">
+            <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="font-size: 17px">
+                <a class="mui-control-item" href="#item1">信息流程</a>
+                <a class="mui-control-item" href="#item2">审批意见</a>
+                <a class="mui-control-item" href="#item3">办理信息</a>
+            </div>
+            <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4" style="background: transparent">
+                <div style="width: 50%;height: 100%;background: #007aff;margin: 0 auto"></div>
+            </div>
+        </div>
+
+        <div class="mui-slider-group" style="padding-top: 20px;">
+            <div id="item1" class="mui-slider-item mui-control-content mui-active" style="padding: 0 12px 20px 22px;">
+
+            </div>
+            <div id="item2" class="mui-slider-item mui-control-content" style="padding: 0 12px 20px 22px;">
+                2222222222222
+            </div>
+            <div id="item3" class="mui-slider-item mui-control-content" style="padding: 0 12px 20px 22px;">
+                <ul class="layui-timeline">
+                    <li class="layui-timeline-item">
+                        <b style="font-weight: 100; float: left; position: relative; z-index: 10; color: rgb(255, 255, 255); font-size: 16px; line-height: 36px; text-align: center; display: block; width: 36px; border-radius: 50%; background: rgb(74, 158, 254); left: -12px;">
+                            处
+                        </b>
+                        <div class="layui-timeline-content layui-text" style="padding-left: 36px;">
+                            <h3 class="layui-timeline-title overflow" style="margin: 0px; font-size: 16px;">
+                                <div class="fl">
+                                    发起文件
+                                </div>
+                                <div class="fr" style="font-size: 14px;color: #9d9d9d">
+                                    <span>办理人： </span>
+                                    <span>张胜</span>
+                                </div>
+                            </h3>
+                            <div style="padding-bottom: 10px;font-size: 14px;line-height: 18px;color: #9d9d9d;border-bottom: 1px dashed #aaa;">
+                                <div class="overflow" style="line-height: 30px;">
+                                    <div class="fl">
+                                        办理时间：
+                                    </div>
+                                    <div class="fl">2019-09-18 19:13:30</div>
+                                </div>
+                                <div class="overflow">
+                                    <div class="fl" style="width: 24%;">
+                                        移交信息：
+                                    </div>
+                                    <div class="fl" style="width: 76%; text-align: left;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. na. Quisque in ante tellus, in placerat est..</div>
+                                </div>
+                                <div class="overflow" style="line-height: 30px;">
+                                    <div class="fl">
+                                        办结时间：
+                                    </div>
+                                    <div class="fl">2019-09-18 19:13:30</div>
+                                    <div class="fr" style="color: #4fb69b;font-size: 15px">发起</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

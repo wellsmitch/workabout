@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="./mui/css/mui.css">
+    <script type="text/javascript">
+        var bw = (document.documentElement.clientWidth / 7.5) + "px";
+        var htmlTag = document.getElementsByTagName("html")[0];
+        htmlTag.style.fontSize = bw;
+    </script>
+    <style type="text/css">
+        body {
+            background: #ffffff;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #gdzc .mui-input-group input:not([type=radio]), .mui-input-group textarea {
+            border: 1px solid #e6e6e6;
+        }
+
+        #gdzc .mui-input-group input {
+            height: .52rem;
+            line-height: .52rem;
+            font-size: .24rem;
+        }
+
+        #gdzc .mui-input-group td {
+            font-size: .24rem;
+        }
+
+        #gdzc .mui-input-group:after {
+            background: #ffffff;
+        }
+
+        #gdzc .mui-input-group tr td:nth-child(1) {
+            padding-bottom: .2rem;
+            width: 1.8rem;
+            text-align: left;
+        }
+
+        #gdzc .mui-input-group .tdValue input[endMark] {
+            width: 90%;
+            float: left;
+        }
+
+        #gdzc .mui-input-group .tdValue input[endMark] + span {
+            font-size: .24rem;
+            padding-left: .2rem;
+        }
+
+        #gdzc .mui-input-row {
+            clear: initial;
+        }
+
+        #shangchaun {
+            width: .88rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            background: #2081ea;
+            color: #ffffff;
+            position: absolute;
+            top: .46rem;
+            right: 1.5rem;
+            z-index: 2;
+            border-radius: .1rem
+        }
+
+        .delFile {
+            width: .88rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            background: #e70012;
+            color: #ffffff;
+            border-radius: .1rem;
+            margin-right: .2rem;
+            margin-top: .16rem;
+        }
+
+        .title {
+            width: 4.5rem;
+            padding-left: .2rem;
+            font-size: .2rem;
+            line-height: .66rem;
+        }
+
+        #fileList li {
+            margin: .2rem 0;
+        }
+
+        #gdzc .mui-input-group .mui-input-row:after {
+            background: transparent;
+        }
+
+        .msgBtn {
+            font-size: .2rem;
+            width: .9rem;
+            height: .4rem;
+            line-height: .4rem;
+            background: #2081ea;
+            border-radius: .06rem;
+            color: #ffffff;
+            text-align: center;
+        }
+        /*弹窗css start*/
+        .mui-input-row label {
+            width: 26%;
+            padding: 11px 6px;
+        }
+
+        .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea {
+            width: 74%;
+        }
+
+        #tex {
+            overflow: hidden;
+        }
+
+        @keyframes action_scale {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes action_scaleOut {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        #tex form label {
+            color: #4d4d4d;
+        }
+
+        #tex .mui-input-group .mui-input-row:after {
+            background: transparent;
+        }
+
+        #tex .mui-input-group:before {
+            background: transparent;
+        }
+        #tex .mui-input-group:after {
+            background: transparent;
+        }
+
+        #tex input {
+            border: 1px solid #e6e6e6;
+            height: 30px;
+        }
+        /*弹窗css end*/
+    </style>
+    <script src="./vue.js"></script>
+    <script src="./jquery.min.js"></script>
+    <link rel="stylesheet" href="./mui/css/mui.picker.min.css">
+</head>
+<body>
+
+<div id="gdzcInfoWraper" v-cloak class="mui-content" style="background: #ffffff">
+    <!--  基本信息 start  -->
+    <div style="">
+
+        <div id="gdzc">
+            <form class="mui-input-group" id="zcgl" style="font-size: .24rem;color: #696969">
+                <div style="box-sizing: content-box">
+                    <div style="background: #fff; font-size: 16px; line-height: 48px; text-align: center;font-weight: 600;">
+                        基本信息
+                    </div>
+                    <div style="padding: 0 .3rem">
+                        <table id="baseInfoTable" style="border-collapse: collapse;width: 100%;">
+                            <tr>
+                                <td class="tdLable">项目类型</td>
+                                <td class="tdValue">
+                                    <div class="mui-input-row mui-radio mui-left" style="width: 50%;float: left">
+                                        <label style="width: 100%">购置</label>
+                                        <input name="radio1" type="radio">
+                                    </div>
+                                    <div class="mui-input-row mui-radio mui-left" style="width: 50%;float: left">
+                                        <label style="width: 100%">处置</label>
+                                        <input name="radio1" checked="checked" type="radio">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">项目名称</td>
+                                <td class="tdValue">
+                                    <input type="text" v-model="itemName">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">申请人</td>
+                                <td class="tdValue">
+                                    <input type="text" v-model="applyUser">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">申请时间</td>
+                                <td class="tdValue">
+                                    <div style="height: 26px;border: 1px solid #e6e6e6;text-indent: 15px"
+                                         @click="pickTime()">{{returnTime}}
+                                    </div>
+                                    <!--<input type="text" v-model="applyTime">-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdLable">申请事由</td>
+                                <td class="tdValue">
+                                    <textarea name="" id="" cols="3" rows="3"></textarea>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                    <div>
+                        <div style="background: #f1f1f1;padding-bottom: 6px">
+                            <div style="font-size: 15px;line-height: 50px;text-align: center;font-weight: bold;position: relative">
+                                资产明细信息
+                                <div class="msgBtn" style="position:absolute;top: 16px;right: 50px;" @click="addMsg()">新增</div>
+                            </div>
+                            <div class="overflow" style="font-size: 12px;padding: 0 14px">
+                                <span class="fl">总数量</span>
+                                <span class="fl" style="color: #2180ea;margin-left: 6px">{{zcmxAdd.totalNum}}</span>
+                                <span class="fr" style="color: #2180ea;margin-left: 6px">{{zcmxAdd.totalValue}}￥</span>
+                                <span class="fr">总价值</span>
+                            </div>
+                            <ul style="padding: 0 14px">
+                                <li v-for="(item, index) in zcmxAdd.detailList" v-if="index < fadeNum">
+                                    <div style="font-size: 12px;line-height: 20px;background: #fff;border-radius: 6px;padding: 6px;">
+                                        <div style="padding-bottom: 6px">{{item.assetName}}</div>
+                                        <div>{{item.assetType}}</div>
+                                        <div class="overflow">
+                                            <div class="fl">数量: <span style="color: #2180ea">{{item.assetNum}}</span></div>
+                                            <div class="fr">价格: <span style="color: #2180ea">{{item.assetValue}}</span>￥
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="overflow">
+                                        <div class="msgBtn fr" style="padding: 0;border: none;margin: .17rem 0 .17rem .26rem;background: #e70012;">删除</div>
+                                        <div class="msgBtn fr" style="padding: 0;border: none;margin: .17rem 0 .17rem .26rem">编辑</div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div style="text-align: right;position: relative;padding-top: 24px">
+                                <div style="display: inline-block;position: absolute;bottom: 2px;right: 24px;font-size: 14px;color: #007AFF;z-index: 30"
+                                     @click="zcSpread" v-show="zcmxAdd.detailList && zcmxAdd.detailList.length > 2">
+                                    {{zcSpreadInitText}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--  基本信息 end  -->
+    <!--  弹窗开始  -->
+    <div id="texWrap"  @click="msgMask($event)" style="display:none;width: 100vw;height: 100vh;background:rgba(170,170,170,.3);position: absolute;top: 0;z-index:9999;margin: 0 auto">
+        <div id="tex" @click.stop="prevent($event)" style="width: 300px;background: #ffffff;margin: 100px auto;padding: 6px;font-size: 12px">
+            <div style="text-align: center;line-height: 40px">资产明晰信息</div>
+            <form class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>序号</label>
+                    <input type="text">
+                </div>
+                <div class="mui-input-row">
+                    <label>资产名称</label>
+                    <input type="text">
+                </div>
+                <div class="mui-input-row">
+                    <label>型号及规格</label>
+                    <input type="text">
+                </div>
+                <div class="mui-input-row">
+                    <label>数量</label>
+                    <input type="text">
+                </div>
+                <div class="mui-input-row">
+                    <label>价值（元）</label>
+                    <input type="text">
+                </div>
+                <div class="mui-button-row">
+                    <div style="width: 200px;font-size: 16px;line-height: 30px;color: #fff;background: #3072fa;border-radius: 8px;margin: 0 auto;text-align: center" @click="submitMsg()">
+                        确定
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <!--  弹窗结束  -->
+</div>
+<script src="./mui/js/mui.js"></script>
+<script src="./mui/js/mui.picker.min.js"></script>
+<script src="固定资产管理.js"></script>
+</body>
+</html>

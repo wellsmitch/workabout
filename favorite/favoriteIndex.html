@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>Title</title>
+    <style>
+        .listLabel {
+            /*float: left;*/
+            width: 25%;
+            /*border: 1px salmon solid;*/
+            box-sizing: border-box;
+            color: #787878;
+            text-align: center;
+            line-height: 50px;
+            font-size: 14px;
+        }
+
+        .listLabelMark {
+            color: #2081e8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .fl {
+            float: left;
+        }
+        .overflow {
+            overflow: hidden;
+        }
+        ul {list-style: none;margin: 0;
+            padding: 0;}
+        .totalBlock {
+
+        }
+    </style>
+    <script src="../JS/vue.min.js"></script>
+    <link rel="stylesheet" href="../css/mui.css">
+</head>
+<body>
+<div id="favoriteWrape" style="height: 100%;overflow: auto">
+    <ul class="mui-table-view" id="dbListUl">
+        <li class="mui-table-view-cell" v-for="(item,index) in titleArr">
+            <a href="javascript:void(0)" class="mui-navigate-right">
+                <div style="clear: both">
+                    <div class="fl" style="position: relative">
+                        <img :style="'width: 46px;height: 46px;display: block;border-radius: 8px;background:'+ item.color" src="../wjlz.png" alt="">
+                        <!--<img style="width: 46px;height: 46px" :src="item.imgSrc" alt="">-->
+                        <div class="totalBlock" style="position: absolute;width: 16px;height:16px;border-radius: 4px;top: -6px;right: -6px;font-size:8px ;text-align:center;line-height:16px;color:#fff;background:red;">{{item.total}}</div>
+                    </div>
+                    <div class="fl" style="font-size: 16px;line-height: 50px;text-indent: 16px">{{item.title}}</div>
+                </div>
+
+            </a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var favoriteWrape = new Vue({
+        el: '#favoriteWrape',
+        data: {
+            indexNum: '',
+            class: '',
+            titleArr: [
+                {
+                    title: "公文发文",
+                    imgSrc:'1.png',
+                    color: '#fbad05',
+                    total:10
+                },
+                {
+                    title: "公文发文",
+                    imgSrc:'2.png',
+                    color: '#3696fc',
+                    total:10
+                },
+                {
+                    title: "信息发布",
+                    imgSrc:'3.png',
+                    color: '#3696fc',
+                    total:10
+                },
+                {
+                    title: "公文流转",
+                    imgSrc:'4.png',
+                    color: '#ff953f',
+                    total:10
+                },
+                {
+                    title: "内部邮件",
+                    imgSrc:'5.png',
+                    color: '#f15b43',
+                    total:10
+                },
+                {
+                    title: "公文收文",
+                    imgSrc:'6.png',
+                    color: '#fbad05',
+                    total:10
+                },{
+                    title: "公文收文",
+                    imgSrc:'6.png',
+                    color: '#fbad05',
+                    total:10
+                },{
+                    title: "公文收文",
+                    imgSrc:'6.png',
+                    color: '#fbad05',
+                    total:10
+                },{
+                    title: "公文收文",
+                    imgSrc:'6.png',
+                    color: '#fbad05',
+                    total:10
+                },{
+                    title: "公文收文",
+                    imgSrc:'6.png',
+                    color: '#fbad05',
+                    total:10
+                },{
+                    title: "公文收文",
+                    imgSrc:'6.png',
+                    color: '#fbad05',
+                    total:10
+                },{
+                    title: "公文收文",
+                    imgSrc:'6.png',
+                    color: '#fbad05',
+                    total:10
+                },
+                {
+                    title: "公告消息",
+                    imgSrc:'7.png',
+                    color: '#15be85',
+                    total:10
+                }]
+        },
+        methods: {
+        }
+    })
+</script>
+</body>
+</html>

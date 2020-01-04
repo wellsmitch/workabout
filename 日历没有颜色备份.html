@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>生成日历</title>
+    <style type="text/css">
+        .myCalendar .green {
+            background-color: #449d44;
+            color: white;
+        }
+
+        .myCalendar .warn {
+            background-color: #d88b1d;
+            color: white;
+        }
+
+        .myCalendar .red {
+            background-color: #c9302c;
+            color: white;
+        }
+
+        .myCalendar .gray {
+            border: 1px solid #eeeeee;
+            /*background-color: #E4E4E4;*/
+        }
+
+        .myCalendar .green.picked {
+            background-color: #23d223;
+            opacity: 1;
+            color: white;
+            border: 2px solid #5597d0;
+        }
+
+        .myCalendar .warn.picked {
+            background-color: #ff9500;
+            border: 2px solid #5597d0;
+            opacity: 1;
+            color: white;
+        }
+
+        .myCalendar .red.picked {
+            background-color: #ef231d;
+            border: 2px solid #1f5c90;
+            opacity: 1;
+            color: white;
+        }
+
+        .myCalendar .th {
+            background-color: #d3d3d3;
+            color: #000;
+        }
+
+        .myCalendar .date {
+            cursor: pointer;
+        }
+
+        .myCalendar {
+            width: 100%;
+            border-collapse: collapse;
+            border-color: #ccc;
+            font-family: 微软雅黑;
+        }
+
+        .myCalendar th {
+            height: 40px;
+        }
+
+        .myCalendar th > div {
+            height: 100%;
+            background: #d3d3d3;
+            line-height: 40px;
+            color: #000;
+        }
+
+        .myCalendar td {
+            position: relative;
+            height: 100px;
+        }
+
+        .myCalendar td > div:nth-child(1) {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+        .myCalendar td > div:nth-child(2) {
+            text-align: center;
+        }
+
+        .msgWraper {
+            box-sizing: border-box;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+
+        .myCalendar td .statusa {
+            width: 6px;
+            height: 6px;
+            margin: 6px 6px 0 8px;
+            background: #f00;
+            border-radius: 2px;
+        }
+
+        .msgWraper .layui-nav .layui-this:after, .msgWraper .layui-nav-bar {
+            height: 0;
+        }
+
+        .msgWraper .layui-nav-child {
+            top: 0;
+            left: 60px;
+            line-height: 22px;
+        }
+
+        .msgWraper .layui-nav-more {
+            display: none;
+        !important;
+        }
+
+        .msgWraper .layui-nav .layui-nav-child a {
+            font-weight: normal;
+        }
+
+        .msgWraper .layui-nav .layui-nav-child a:hover {
+            background: #1269d330;
+        }
+
+        .msgWraper .layui-nav .layui-nav-item {
+            display: block;
+        }
+
+    </style>
+    <link rel="stylesheet" href="layui-v2.4.5/layui/css/layui.css">
+    <script src="layui-v2.4.5/layui/layui.js"></script>
+</head>
+<body>
+<div id="date" style="width: 900px;height: 600px;">
+
+</div>
+
+</body>
+<script src="./JS/jquery.min.js"></script>
+<script type="text/javascript">
+    layui.use('element', function () {
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    })
+
+    /**
+     * data
+     */
+    function getWeekAndTotalDay(date) {
+        var now = new Date(date);
+        var week = now.getDay();
+        var totalDay = 0;
+        var curMonth = now.getMonth();
+        now.setMonth(curMonth + 1);
+        now.setDate(0);
+        return {
+            firstDayWeek: week,
+            totalDay: now.getDate(),
+            currDay: new Date().getDate()
+        }
+    }
+
+    function render(selector, date, officeData) {
+        var num = 30;
+        var firstDayWeek = date.firstDayWeek,
+            totalDay = date.totalDay,
+            currDay = date.currDay;
+        /*模拟数据*/
+        var officeData_ = officeData || [];
+        for (var j = 0; j < totalDay; j++) {
+            officeData_.push(['' + j + j + j + j + j, '' + j + j + j + j + j]);
+        }
+
+        function liBodyFun(dataLi) {
+            var liBody = '';
+            var moreLiSingle = '';
+            dataLi.forEach(function (ele, index) {
+                if (index <= 2) {
+                    liBody += '<li class="layui-nav-item" style="line-height: 20px;padding: 0 0 0 10px;background: #1269d330;margin-bottom: 5px;">' +
+                        '<a href="javascript:;" style="color: #000;padding: 0">' + ele + '</a>' +
+                        '</li>';
+                } else {
+                    moreLiSingle += '<dd><a href="javascript:">'+ ele +'</a></dd>';
+                    if(index === officeData.length - 1) {
+                        var moreLi = '<li class="layui-nav-item" style="line-height: 20px;padding: 0 0 0 10px;margin-bottom: 5px;">' +
+                            '<a href="javascript:;" style="padding: 0;color: blue">显示更多</a>' +
+                            '<dl class="layui-nav-child" id="moreLiContent"></dl></li>';
+                        liBody += moreLi
+                    }
+                }
+            });
+            return liBody;
+        }
+
+        console.log(currDay);
+        var totalTr = (firstDayWeek + totalDay) / 7;
+
+        for (var k = 0; k < totalDay; k++) {
+            officeData.push(Math.floor(Math.random() * 10))
+        }
+        var numOrder = 0;
+
+        var wraperDom = $('<table class="myCalendar"></table>');
+        var headerDom = $('<tr><th><div>星期一</div></th><th><div>星期二</div></th><th><div>星期三</div></th><th><div>星期四</div></th><th><div>星期五</div></th><th><div>星期六</div></th><th><div>星期日</div></th></tr>');
+        var bodyDom = $('<tbody></tbody>');
+        wraperDom.empty().append(headerDom);
+        var initialDay = 1;
+        for (var i = 0; i < totalTr; i++) {
+            var $tr = $('<tr></tr>');
+            for (var j = 0; j < 7; j++) {
+                console.log(numOrder ,'officeData_[numOrder]');
+                var officeFinalData = officeData[numOrder];
+                var $td = $('<td class="date" style="border: 1px solid #eee;background: #fbfbfb">' +
+                    '<div class="msgWraper" style="width: 100%;height: 100%">' +
+                    '<div style="width: 24px;height: 24px;text-align: center">' +
+                    (initialDay > totalDay ? totalDay : initialDay) +
+                    '</div>' +
+
+
+                    (initialDay >= currDay ? (
+                        '<div class="overflow1" style="font-size: 12px">' +
+                        // '<div class="statusa fl"></div>' +
+                        '<div class="fl" style="width: 100%">' +
+                        '<ul class="layui-nav" style="background: transparent;padding: 0">' +
+                        // liBodyFun(officeData_[numOrder]) +
+
+               /*         `
+                                    <li class="layui-nav-item" style="line-height: 20px;padding: 0 0 0 10px;background: #1269d330;margin-bottom: 5px;">
+                                    <a href="javascript:;" style="color: #000;padding: 0">aaa</a>
+                                    </li>
+                                    <li class="layui-nav-item" style="line-height: 20px;padding: 0 0 0 10px;background: #1269d330;margin-bottom: 5px;">
+                                       <a href="javascript:;" style="color: #000;padding: 0">aaa</a>
+                                    </li>
+                                   <li class="layui-nav-item" style="line-height: 20px;padding: 0 0 0 10px;margin-bottom: 5px;">
+                                    <a href="javascript:;" style="color: #000;padding: 0;color: blue">显示更多</a>
+                                    <dl class="layui-nav-child">
+                                      <dd><a href="">选项1</a></dd>
+                                      <dd><a href="">选项2</a></dd>
+                                      <dd><a href="">选项3</a></dd>
+                                    </dl>
+                                  </li>` +*/
+                        '</ul>' +
+                        // '剩余5个会议室' +
+                        '</div>' +
+                        '</div>') : '') +
+
+
+                    '</div>' +
+                    '</td>');
+                var $emptyTd = $('<td style="background: #f5f5f5;border: 1px solid #eee;"></td>');
+                if (initialDay == currDay) {
+                    $td.find('.msgWraper').addClass("picked");
+                } else if (initialDay < currDay) {
+                    // $td.find('.msgWraper').addClass("gray");
+                }
+                if (i == 0) {
+                    if (j < firstDayWeek) {
+                        $tr.append($emptyTd);
+                    } else {
+
+                        $tr.append($td);
+                        initialDay++;
+                    }
+                } else {
+                    if (initialDay > totalDay) {
+                        $tr.append($emptyTd);
+                    } else {
+                        $tr.append($td);
+                        initialDay++;
+                    }
+                }
+
+                numOrder++;
+            }
+            bodyDom.append($tr);
+        }
+        wraperDom.append(bodyDom);
+        $(selector).empty().html(wraperDom);
+    }
+
+    $("#date").on('dblclick', 'td', function () {
+        console.log(111);
+    });
+
+    /*    $("#date").on('click', '.date', function () {
+            $("#date").find("td .msgWraper").removeClass("picked");
+            if (!$(this).find(".msgWraper").hasClass("gray")) {
+                $(this).find('.msgWraper').addClass("picked");
+            }
+        });*/
+
+    var officeData = [];
+    render('#date', getWeekAndTotalDay("2019-12-7"), officeData)
+</script>
+</html>

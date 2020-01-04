@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" class="text">
+<p class="text1"></p>
+<script type="text/javascript">
+    // js:
+
+    //判断是不是对象
+    function isObj(obj){
+        var type = Object.prototype.toString.call(obj);
+        return type === '[object Object]';
+    }
+
+    //执行函数：
+    function objFun(obj){
+        if(isObj(obj)){
+            new Observer(obj);
+        }
+    }
+
+    function Observer(obj){
+        this.data = obj;
+        this.walk(obj);
+    }
+
+    //监听事件函数：
+    Observer.prototype.walk = function(obj){
+        for(var k in obj){
+            def(obj,k,obj[k])
+        }
+    };
+
+    function def(obj,k,val){
+        Object.defineProperty(obj,k,{
+            configurable:true,
+            enumerable:true,
+            get:function(){
+                console.log('get取值');
+                return val;
+            },
+            set:function(newVal){
+                if(val === newVal){
+                    return;
+                }
+                val = newVal;
+                console.log('set设置值')
+            }
+        });
+    }
+
+    //测试：
+    var obj = {a:111,b:222};
+    setTimeout(function () {
+        objFun(obj);
+    },3000);
+
+    console.log(obj.a); //get取值 222
+    obj.a = 333;//set设置值
+    console.log(obj)
+</script>
+
+</body>
+</html>

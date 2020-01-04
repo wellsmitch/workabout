@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body style="height: 200px;">
+    <div style="width: 100%;background: #00FF00;height: calc(100% - 100px)"></div>
+<script type="text/javascript">
+	// [111,24,35,6,6,45,2,45].forEach(function (ele,index) {
+    //     if(index == 3) {
+    //         return;
+    //     }
+    // })
+
+
+    // for (var i = 0; i < 10; i ++) {
+    //     function f() {
+    //         console.log(i);
+    //     }()
+    // }
+
+
+    function aa(callback) {
+        var a = false;
+        var b = false;
+        var c = false;
+        setTimeout(function () {
+            callback(11111)
+        },1000);
+        setTimeout(function () {
+            callback(11111)
+        },1000);
+        setTimeout(function () {
+            callback(11111)
+        },1000);
+        if(a && b&& c) {
+
+        }
+    }
+    aa(function (a) {
+        console.log(a)
+    })
+</script>
+</body>
+</html>

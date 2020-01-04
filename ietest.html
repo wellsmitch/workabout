@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div
+        {
+            margin:30px;
+            width:200px;
+            height:100px;
+            background-color:yellow;
+            /* Rotate div */
+            transform:rotate(9deg);
+            -ms-transform:rotate(9deg); /* Internet Explorer */
+            -moz-transform:rotate(9deg); /* Firefox */
+            -webkit-transform:rotate(9deg); /* Safari 和 Chrome */
+            -o-transform:rotate(9deg); /* Opera */
+        }
+    </style>
+
+    <script src="JS/jquery.min.js"></script>
+    <script src="JS/polyfill7.4.4.js"></script>
+    <script src="JS/browser5.5.23.js"></script>
+</head>
+<body>
+
+<!--<div class="shiju_bekaobiao" style="height:277mm;border-left:1px dashed #000;padding:20mm 10mm 0mm 15mm;margin:0 14mm 0 15mm;position:relative">-->
+    <!--<div style="display:flex;flex-direction: column;position:absolute;height:256mm;top:0;left:-2mm;justify-content: space-evenly;box-sizing:border-box;padding: 56mm 0 16mm;">-->
+
+        <!--<div style="width:20px;height:20px;color: #000;border-radius:50%;background:#fff">装</div>-->
+        <!--<div style="width:20px;height:20px;color: #000;border-radius:50%;background:#fff">订</div>-->
+        <!--<div style="width:20px;height:20px;color: #000;border-radius:50%;background:#fff">线</div>-->
+    <!--</div>-->
+
+    <!--<div style="font-size:6mm;text-align:center;width:156mm;margin: 0 auto;padding-bottom:12mm">-->
+        <!--<span id="bkbyc"><b>卷内备考表</b></span>-->
+    <!--</div>-->
+    <!--<table class="table" cellpadding="0" cellspacing="0" align="center" style="width:156mm;margin: 0 auto;border:1px solid #000" id="printTableBKB">-->
+        <!--<tr>-->
+            <!--<td style="font-size:18px;line-height:40px;text-indent:10px"><span id="bkbqksmyc">本卷情况说明:</span></td>-->
+
+
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td style="font-size:18px;line-height:40px;text-indent:10px"></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td style="min-height:650px;display:block">-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr style="text-align:right">-->
+            <!--<td style="text-align:left; line-height:40px; font-size:18px;display:inline-block;padding:0 50px 50px 0">-->
+                <!--@*<span></span>*@-->
+                <!--<span id="bkbljryc">&nbsp;&nbsp;立&nbsp;卷&nbsp;人：</span><span id="ljr"></span><br />-->
+                <!--<span id="bkbjcryc">&nbsp;&nbsp;检&nbsp;查&nbsp;人：</span><span id="jcr"></span><br />-->
+                <!--<span id="bkbljsjyc">&nbsp;&nbsp;立 卷 时 间：</span><span id="ljsj"></span>-->
+            <!--</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+<!--</div>-->
+
+<div id="s">
+
+</div>
+<script src="layui-v2.4.5/layui/layui.js"></script>
+<script type="text/babel">
+ var aaaaa = 'ewrfwe';
+    layui.use(['jquery','layer'],function () {
+        var $ = layui.jquery,
+            layer = layui.layer;
+
+        layer.open({
+            type: 1,
+            title : '地块详情',
+            offset: '50px',
+            area: ['336px', '460px'],
+            content: `<div>${aaaaa}</div>`
+
+        });
+    });
+	let a = 'afewrfewrf';
+    console.log(a);
+$('#s').append(
+    `
+<div>${a}</div>
+<div>sadasd</div>
+<div>sadasd</div>
+<div>sadasd</div>
+<div>sadasd</div>
+<div>sadasd</div>
+<div>sadasd</div>
+    `
+)
+    function sleep(second, param) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(param);
+            }, second);
+        })
+    }
+
+    async function test() {
+        let result1 = await sleep(2000, 'req01');
+        let result2 = await sleep(1000, 'req02' + result1);
+        let result3 = await sleep(500, 'req03' + result2);
+        console.log(`
+        ${result3}
+        ${result2}
+        ${result1}
+    `);
+    }
+
+    test();
+</script>
+
+</body>
+</html>
